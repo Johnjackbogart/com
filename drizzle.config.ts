@@ -3,10 +3,11 @@ import { type Config } from "drizzle-kit";
 import { env } from "~/env.mjs";
 
 export default {
-  schema: "./src/server/db/schema.ts",
-  driver: "mysql2",
+  schema: "./src/drizzle/schema.ts",
+  driver: "pg",
   dbCredentials: {
-    connectionString: env.DATABASE_URL,
+    host: env.DB_HOST,
+    password: env.DB_PW,
+    database: env.DB_DB,
   },
-  tablesFilter: ["com_*"],
 } satisfies Config;
