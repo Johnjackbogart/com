@@ -6,7 +6,7 @@ import {
 } from "next-auth";
 
 import { env } from "~/env.mjs";
-import { db } from "~/drizzle";
+import db from "~/drizzle";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
