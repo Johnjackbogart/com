@@ -7,18 +7,8 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DB_HOST: z
-      //TODO refine with localhost in dev vs other env
-      .string(),
-    DB_PORT: z
-      //TODO refine with port number, think its always 5432
-      //what's the type of env vars? this comes as string
-      .string(),
-    DB_USER: z
-      .string(),
-    DB_PW: z
-      .string(),
-    DB_DB: z
+    DB_URL: z
+      //TODO refine with URL, not sure if zod supports 
       .string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])

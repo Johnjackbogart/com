@@ -1,19 +1,15 @@
 import fs from 'fs';
-import { drizzle } from "drizzle-orm/postgres-js";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
+import { drizzle } from "drizzle-orm/node-postgres";
 import postgres from 'postgres';
+import { Client } from 'pg';
 import { env } from "~/env.mjs";
 
-const client = postgres('', {
-  ssl: {
-    ca: fs.readFileSync('./prod-ca-2021.crt'),
-  },
-  host: env.DB_HOST,
-  port: parseInt(env.DB_PORT),
-  user: env.DB_USER,
-  password: env.DB_PW,
-  database: env.DB_DB,
+console.log(fs.readFileSync('../../prod-ca-2021.crt').toString());
+
+const client = new Client({
+  connectionString: env.DB_URL, 
 });
 
+await client.connect();
 const db = drizzle(client);
 export default db;
