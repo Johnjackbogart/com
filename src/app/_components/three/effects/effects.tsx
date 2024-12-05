@@ -13,7 +13,6 @@ import { ChromaticAberrationEffect, BlendFunction } from "postprocessing";
 import { easing } from "maath";
 
 export default function Effects() {
-  const chromaRef = useRef<ChromaticAberrationEffect | null>(null);
   let chromaEffect: ChromaticAberrationEffect | null = null;
   let offset = new THREE.Vector2(0.1, 0.1);
 
@@ -24,17 +23,17 @@ export default function Effects() {
       state.camera.position,
       [
         Math.sin(-state.pointer.x) * 5,
-        state.pointer.y * 2,
-        0.5 + Math.cos(state.pointer.x) * 5,
+        state.pointer.y * 5,
+        0.5 + Math.cos(state.pointer.x) * 2,
       ],
-      0.1,
+      1,
       delta,
     );
     state.camera.lookAt(0, 0, 0);
 
     if (!chromaEffect) return;
-    const x = Math.sin(-state.pointer.x) / 10;
-    const y = state.pointer.y / 10;
+    const x = Math.sin(-state.pointer.x) / 100;
+    const y = state.pointer.y / 100;
     offset = new THREE.Vector2(x, y);
     chromaEffect.offset = offset;
   });
