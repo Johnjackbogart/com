@@ -14,12 +14,8 @@ const lightFill: headerFill = { foreground: "#fff", background: "#000" };
 const darkFill: headerFill = { foreground: "#000", background: "#fff" };
 
 const JackBogart = (props: headerProps) => {
-  //TODO fix to handle system theme?
-  const fill: headerFill = props.theme
-    ? props.theme === "dark"
-      ? lightFill
-      : darkFill
-    : lightFill;
+  const fill: headerFill =
+    props.theme === "dark" || props.theme === "system" ? darkFill : lightFill;
 
   return (
     <svg
