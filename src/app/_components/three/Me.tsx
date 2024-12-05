@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.5.2 -t public/me.glb
 
 import * as THREE from "three";
 import { useEffect, useRef, useMemo, Ref } from "react";
-import { useGraph } from "@react-three/fiber";
+import { useGraph, useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { GLTF, SkeletonUtils } from "three-stdlib";
 
@@ -40,9 +40,18 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
-    console.log(actions);
     if (!actions) return;
     actions.Just_chilling_Clean?.play();
+  });
+  useFrame((state, delta) => {
+    if (!group.current) return;
+    if (
+      state.clock.getElapsedTime() > 10 &&
+      state.clock.getElapsedTime() < 20
+    ) {
+      group.current.position.setZ(state.clock.getElapsedTime() / 4 - 1);
+      console.log(group.current.position);
+    }
   });
   return (
     <group ref={group as Ref<THREE.Group>} {...props} dispose={null}>

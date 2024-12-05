@@ -1,27 +1,53 @@
 "use client";
 import * as THREE from "three";
-import { useRef, useMemo } from "react";
+import { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Physics, RigidBody } from "@react-three/rapier";
-import {
-  Text,
-  Line,
-  DragControls,
-  MeshTransmissionMaterial,
-  Html,
-} from "@react-three/drei";
+import { DragControls, MeshTransmissionMaterial } from "@react-three/drei";
+import { easing } from "maath";
 
 import { Me } from "./Me";
 
 export default function PlayGround() {
   const tk = useRef<THREE.Mesh>(null);
+  const scrollOffset = useRef(0);
 
   const p = 31;
   const q = 5;
 
-  useFrame((state) => {
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      // Adjust this multiplier to control zoom speed
+      scrollOffset.current += e.deltaY * 0.001;
+    };
+
+    // Add a wheel event listener to window (or a scrollable container)
+    window.addEventListener("wheel", handleWheel, { passive: true });
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+  useFrame((state, delta) => {
     if (!tk.current) return;
+    if (state.clock.getElapsedTime() < 10) {
+      tk.current.position.setZ(1.5 + state.clock.getElapsedTime());
+    }
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
+    //can I just import this as a prop ?????
+    //stolen from https://discourse.threejs.org/t/how-to-create-glass-material-that-refracts-elements-in-dom/53625/3
+    easing.damp3(
+      state.camera.position,
+      [
+        Math.sin(-state.pointer.x) * 5,
+        state.pointer.y * 5,
+        5 + scrollOffset.current + Math.cos(state.pointer.x) * 2,
+      ],
+      0.1,
+      delta,
+    );
+    state.camera.lookAt(0, 0, 0);
   });
 
   return (
@@ -45,46 +71,5 @@ export default function PlayGround() {
         </RigidBody>
       </DragControls>
     </Physics>
-  );
-}
-
-function DeformablePlane() {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const planeGeometry = useMemo(
-    () => new THREE.PlaneGeometry(10, 10, 100, 100),
-    [],
-  );
-
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    if (!meshRef.current) return;
-    const positionAttribute = meshRef.current.geometry.attributes
-      .position as THREE.BufferAttribute;
-
-    for (let i = 0; i < positionAttribute.count; i++) {
-      const x = positionAttribute.getX(i);
-      const y = positionAttribute.getY(i);
-
-      // Example deformation function (wave effect)
-      const z = Math.sin(x * 2 + time) * Math.cos(y * 2 + time) * 0.5;
-
-      positionAttribute.setZ(i, z);
-    }
-
-    positionAttribute.needsUpdate = true; // Inform Three.js that the positions have changed
-
-    //meshRef.current.rotation.z = 0.01 * clock.getElapsedTime();
-    //meshRef.current.rotation.x = 0.01 * clock.getElapsedTime();
-  });
-
-  return (
-    <mesh rotation={[0, 0, Math.PI / 2]} ref={meshRef} geometry={planeGeometry}>
-      <MeshTransmissionMaterial
-        thickness={0.1}
-        backside
-        backsideThickness={0.1}
-        transmission={0.99}
-      />
-    </mesh>
   );
 }
