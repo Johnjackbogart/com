@@ -7,14 +7,14 @@ import {
   Bloom,
   ChromaticAberration,
   EffectComposer,
-  N8AO,
   TiltShift2,
 } from "@react-three/postprocessing";
 import { ChromaticAberrationEffect, BlendFunction } from "postprocessing";
 import { easing } from "maath";
 
 export default function Effects() {
-  const chromaRef = useRef<ChromaticAberrationEffect>(null);
+  const chromaRef = useRef<ChromaticAberrationEffect | null>(null);
+  let chromaEffect: ChromaticAberrationEffect | null = null;
   let offset = new THREE.Vector2(0.1, 0.1);
 
   useFrame((state, delta) => {
@@ -32,18 +32,20 @@ export default function Effects() {
     );
     state.camera.lookAt(0, 0, 0);
 
-    if (!chromaRef.current) return;
+    if (!chromaEffect) return;
     const x = Math.sin(-state.pointer.x) / 10;
     const y = state.pointer.y / 10;
     offset = new THREE.Vector2(x, y);
-    chromaRef.current.offset = offset;
+    chromaEffect.offset = offset;
   });
   return (
     <EffectComposer enableNormalPass={true}>
       <ChromaticAberration
-        ref={
-          chromaRef as unknown as RefObject<typeof ChromaticAberrationEffect>
-        }
+        ref={(ref) => {
+          if (ref && typeof ref === "object" && "offset" in ref) {
+            chromaEffect = ref as ChromaticAberrationEffect;
+          }
+        }}
         blendFunction={BlendFunction.NORMAL}
         offset={new THREE.Vector2(0.01, 0.01)}
         radialModulation={false}
