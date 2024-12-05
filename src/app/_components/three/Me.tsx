@@ -43,13 +43,16 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
     if (!actions) return;
     actions.Just_chilling_Clean?.play();
   });
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!group.current) return;
+    //probably need to modify this for mobile vs desktop
+    //also, probably should be 15.5
     if (
       state.clock.getElapsedTime() > 10 &&
-      state.clock.getElapsedTime() < 20
+      state.clock.getElapsedTime() < 15.5
     ) {
-      group.current.position.setZ(state.clock.getElapsedTime() / 4 - 1);
+      group.current.position.setZ(state.clock.getElapsedTime() - 10);
+      group.current.position.setY((10 - state.clock.getElapsedTime()) / 10);
       console.log(group.current.position);
     }
   });
