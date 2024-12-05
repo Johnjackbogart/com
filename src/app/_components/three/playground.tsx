@@ -19,7 +19,7 @@ export default function PlayGround() {
   const p = 31;
   const q = 5;
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!tk.current) return;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
   });
@@ -27,23 +27,7 @@ export default function PlayGround() {
   return (
     <Physics gravity={[0, 0, 0]}>
       <spotLight position={[0, 0, 0]} penumbra={10} castShadow angle={0.2} />
-      <Text position={[0, 0, -10]} color="green">
-        yoooo
-        <Html
-          style={{ color: "transparent", fontSize: "6em" }}
-          transform={true}
-        >
-          yoooo
-        </Html>
-      </Text>
-      <Line
-        points={[
-          [0, 0, 0],
-          [1, 1, 1],
-        ]}
-      />
       <ambientLight intensity={1} />
-
       <pointLight position={[0, 0, 0]} />
       <DragControls>
         <Me />
