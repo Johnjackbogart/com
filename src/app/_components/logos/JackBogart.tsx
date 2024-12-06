@@ -15,7 +15,9 @@ const darkFill: headerFill = { foreground: "#000", background: "#fff" };
 
 const JackBogart = (props: headerProps) => {
   const fill: headerFill =
-    props.theme === "dark" || props.theme === "system" ? darkFill : lightFill;
+    props.theme === "dark" || props.theme === "system" || !props.theme
+      ? darkFill
+      : lightFill;
 
   return (
     <svg

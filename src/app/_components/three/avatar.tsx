@@ -46,18 +46,23 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
   const { actions } = useAnimations(animations, group);
 
   useFrame((state) => {
-    actions["IdleV4.2(maya_head)"]?.play();
     if (!group.current) return;
     //probably need to modify this for mobile vs desktop
-    //also, probably should be 15.5
-    if (state.clock.getElapsedTime() > 5 && state.clock.getElapsedTime() < 10) {
-      group.current.position.setZ(3 * state.clock.getElapsedTime() - 25);
-      console.log(actions);
-    }
-    if (state.clock.getElapsedTime() > 10) {
+    if (state.clock.getElapsedTime() > 5 && state.clock.getElapsedTime() < 7) {
+      group.current.position.setZ(7.5 * state.clock.getElapsedTime() - 47.25);
+    } else if (
+      state.clock.getElapsedTime() >= 7 &&
+      state.clock.getElapsedTime() <= 8
+    ) {
+      actions["IdleV4.2(maya_head)"]?.fadeOut(0.5);
+      actions.Just_chilling_Clean_Armature?.fadeIn(0.5);
+    } else if (state.clock.getElapsedTime() > 8) {
       actions.Just_chilling_Clean_Armature?.play();
     }
   });
+  useEffect(() => {
+    actions["IdleV4.2(maya_head)"]?.fadeIn(0.1).play();
+  }, [actions]);
   return (
     <group
       position={[0, -1, -10]}
