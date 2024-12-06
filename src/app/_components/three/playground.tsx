@@ -6,7 +6,7 @@ import { Physics, RigidBody } from "@react-three/rapier";
 import { DragControls, MeshTransmissionMaterial } from "@react-three/drei";
 import { easing } from "maath";
 
-import { Me } from "./Me";
+import { Me } from "./avatar";
 
 export default function PlayGround() {
   const tk = useRef<THREE.Mesh>(null);
@@ -31,8 +31,8 @@ export default function PlayGround() {
   }, []);
   useFrame((state, delta) => {
     if (!tk.current) return;
-    if (state.clock.getElapsedTime() < 10) {
-      tk.current.position.setZ(1.5 + state.clock.getElapsedTime());
+    if (state.clock.getElapsedTime() < 5) {
+      tk.current.position.setZ(-50 + 12 * state.clock.getElapsedTime());
     }
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
     //can I just import this as a prop ?????
