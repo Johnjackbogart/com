@@ -31,10 +31,14 @@ export default function PlayGround() {
   }, []);
   useFrame((state, delta) => {
     if (!tk.current) return;
-    if (state.clock.getElapsedTime() < 5) {
-      tk.current.position.setZ(-50 + 12 * state.clock.getElapsedTime());
+    if (state.clock.getElapsedTime() < 10) {
     }
+    /*if (state.clock.getElapsedTime() < 10) {
+      tk.current.position.setZ(-50 + 12 * state.clock.getElapsedTime());
+    }*/
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
+    tk.current.rotation.x = 2;
+    //tk.current.rotation.y = 1 * state.clock.getElapsedTime();
     //can I just import this as a prop ?????
     //stolen from https://discourse.threejs.org/t/how-to-create-glass-material-that-refracts-elements-in-dom/53625/3
     easing.damp3(
@@ -52,17 +56,19 @@ export default function PlayGround() {
 
   return (
     <Physics gravity={[0, 0, 0]}>
-      <spotLight position={[0, 0, 0]} penumbra={10} castShadow angle={0.2} />
-      <ambientLight intensity={1} />
-      <pointLight position={[0, 0, 0]} />
+      <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={0.2} />
+      <ambientLight color="white" intensity={1} />
+      <pointLight position={[0, 0, 3]} />
       <DragControls>
         <Me />
       </DragControls>
       <DragControls>
         <RigidBody colliders={"hull"} restitution={2}>
           <mesh ref={tk}>
-            <torusKnotGeometry args={[5, 0.5, 1000, 100, p, q]} />
+            <torusKnotGeometry args={[6, 0.5, 1000, 100, p, q]} />
             <MeshTransmissionMaterial
+              specularColor={0x0000ff}
+              sheenColor={0x8800ff}
               thickness={2}
               backside
               backsideThickness={1}
