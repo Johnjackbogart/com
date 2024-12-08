@@ -1,15 +1,22 @@
 "use client";
 import * as THREE from "three";
 import { useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import { MeshTransmissionMaterial, Svg } from "@react-three/drei";
+import {
+  MeshTransmissionMaterial,
+  Svg,
+  ScrollControls,
+  Scroll,
+  useScroll,
+} from "@react-three/drei";
 import { easing } from "maath";
 
 import { Me } from "./avatar";
 
-export default function PlayGround() {
+function Scene() {
   const tk = useRef<THREE.Mesh>(null);
+  const scroll = useScroll();
   const scrollOffset = useRef(0);
 
   const p = 31;
@@ -28,16 +35,17 @@ export default function PlayGround() {
   }, []);
   useFrame((state, delta) => {
     if (!tk.current) return;
+    console.log(scroll.offset);
 
     let cameraYOffset = state.pointer.y * 0.05 + scrollOffset.current - 100;
     const cameraZOffset = 5 + Math.cos(state.pointer.x) * 2;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
     tk.current.rotation.x = Math.PI / 2;
+    if (scroll) tk.current.rotation.x = Math.PI * scroll.offset;
 
     if (scrollOffset.current > 100 && scrollOffset.current < 200) {
       cameraYOffset = 0;
     } else if (scrollOffset.current > 200 && scrollOffset.current < 400) {
-      console.log(scrollOffset.current);
       tk.current.rotation.x = (scrollOffset.current / 400) * Math.PI;
       tk.current.position.z = scrollOffset.current / 50 - 4;
       cameraYOffset = 0;
@@ -52,12 +60,11 @@ export default function PlayGround() {
       0.1,
       delta,
     );
-    console.log(tk.current.position);
     state.camera.lookAt(0, 0, 0);
   });
 
   return (
-    <Physics gravity={[0, 0, 0]}>
+    <>
       <Svg
         src={"scroll.svg"}
         position={[0, 0, 50]}
@@ -80,6 +87,16 @@ export default function PlayGround() {
           backsideThickness={1}
         />
       </mesh>
-    </Physics>
+    </>
+  );
+}
+
+export default function Playground() {
+  return (
+    <ScrollControls>
+      <Scroll>
+        <Scene />
+      </Scroll>
+    </ScrollControls>
   );
 }
