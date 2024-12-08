@@ -32,7 +32,7 @@ export default function PlayGround() {
   useFrame((state, delta) => {
     if (!tk.current) return;
     let cameraYOffset = state.pointer.y * 0.05 + scrollOffset.current - 100;
-    let cameraZOffset = 5 + Math.cos(state.pointer.x) * 2;
+    const cameraZOffset = 5 + Math.cos(state.pointer.x) * 2;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
     tk.current.rotation.x = Math.PI / 2;
     if (scrollOffset.current > 100 && scrollOffset.current < 200) {
