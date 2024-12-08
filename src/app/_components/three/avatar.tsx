@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.5.2 -t ../assets/imchill.glb
 
 import * as THREE from "three";
 import React from "react";
-import { useEffect, useRef, Ref } from "react";
+import { useEffect, useState, useRef, Ref } from "react";
 import { useGraph, useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { GLTF, SkeletonUtils } from "three-stdlib";
@@ -39,34 +39,57 @@ type GLTFResult = GLTF & {
 };
 
 export function Me(props: JSX.IntrinsicElements["group"]) {
-  const group = React.useRef<THREE.Group>();
+  const me = React.useRef<THREE.Group>();
+  const scrollOffset = useRef(0);
   const { scene, animations } = useGLTF("/imchill.glb");
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone) as GLTFResult;
-  const { actions } = useAnimations(animations, group);
+  const { actions, names } = useAnimations(animations, me);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      // Adjust this multiplier to control zoom speed
+      scrollOffset.current += e.deltaY * 0.1;
+    };
+
+    // Add a wheel event listener to window (or a scrollable container)
+    window.addEventListener("wheel", handleWheel, { passive: true });
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+  useEffect(() => {
+    console.log(names);
+    if (!actions || !names || index < 0 || index >= names.length) return;
+
+    const actionName = names[index];
+    if (!actionName) return;
+
+    const currentAction = actions[actionName];
+    if (!currentAction) return;
+    currentAction.reset().fadeIn(0.5).play();
+    return () => {
+      currentAction.fadeOut(0.5);
+    };
+  }, [index, actions, names]);
 
   useFrame((state) => {
-    if (!group.current) return;
+    if (!me.current) return;
     //probably need to modify this for mobile vs desktop
-    if (state.clock.getElapsedTime() > 5 && state.clock.getElapsedTime() < 7) {
-      group.current.position.setZ(7.5 * state.clock.getElapsedTime() - 47.25);
-    } else if (
-      state.clock.getElapsedTime() >= 7 &&
-      state.clock.getElapsedTime() <= 8
-    ) {
-      actions["IdleV4.2(maya_head)"]?.fadeOut(0.5);
-      actions.Just_chilling_Clean_Armature?.fadeIn(0.5);
-    } else if (state.clock.getElapsedTime() > 8) {
-      actions.Just_chilling_Clean_Armature?.play();
+    if (scrollOffset.current > 50 && scrollOffset.current < 100) {
+      me.current.position.setZ((scrollOffset.current - 100) / 10 + 5);
+    }
+    if (scrollOffset.current > 200) {
+      setIndex(4);
     }
   });
-  useEffect(() => {
-    actions["IdleV4.2(maya_head)"]?.fadeIn(0.1).play();
-  }, [actions]);
   return (
     <group
       position={[0, -1, -10]}
-      ref={group as Ref<THREE.Group>}
+      ref={me as Ref<THREE.Group>}
       {...props}
       dispose={null}
     >

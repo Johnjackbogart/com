@@ -30,7 +30,6 @@ export default function PlayGround() {
     };
   }, []);
   useFrame((state, delta) => {
-    console.log(scrollOffset.current);
     if (!tk.current) return;
     let cameraYOffset = state.pointer.y * 0.05 + scrollOffset.current - 100;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
@@ -40,8 +39,9 @@ export default function PlayGround() {
       cameraYOffset = 0;
     }
     if (scrollOffset.current > 200) {
-      tk.current.rotation.x = (scrollOffset.current / 100) * Math.PI * 2;
-      cameraYOffset -= 100;
+      tk.current.rotation.x = Math.PI * 2;
+      tk.current.position.z = scrollOffset.current / 50 - 2;
+      cameraYOffset = 0;
     }
     easing.damp3(
       state.camera.position,
@@ -54,7 +54,6 @@ export default function PlayGround() {
       delta,
     );
     state.camera.lookAt(0, 0, 0);
-    console.log(cameraYOffset);
   });
 
   return (
@@ -62,9 +61,7 @@ export default function PlayGround() {
       <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={0.2} />
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />
-      <DragControls>
-        <Me />
-      </DragControls>
+      <Me />
       <DragControls>
         <mesh ref={tk}>
           <torusKnotGeometry args={[7, 0.5, 1000, 100, p, q]} />
