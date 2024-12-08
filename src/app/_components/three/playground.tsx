@@ -35,23 +35,22 @@ function Scene() {
   }, []);
   useFrame((state, delta) => {
     if (!tk.current) return;
-    console.log(scroll.offset);
-
-    let cameraYOffset = state.pointer.y * 0.05 + scrollOffset.current - 100;
+    const scrolled = scroll.offset * 100;
+    console.log(scrolled);
+    let cameraYOffset = state.pointer.y * 0.05 + scrolled - 100;
     const cameraZOffset = 5 + Math.cos(state.pointer.x) * 2;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
     tk.current.rotation.x = Math.PI / 2;
-    if (scroll) tk.current.rotation.x = Math.PI * scroll.offset;
 
-    if (scrollOffset.current > 100 && scrollOffset.current < 200) {
+    if (scrolled > 10 && scrolled < 20) {
       cameraYOffset = 0;
-    } else if (scrollOffset.current > 200 && scrollOffset.current < 400) {
-      tk.current.rotation.x = (scrollOffset.current / 400) * Math.PI;
-      tk.current.position.z = scrollOffset.current / 50 - 4;
+    } else if (scrolled > 20 && scrolled < 40) {
+      tk.current.rotation.x = (scrolled / 400) * Math.PI;
+      tk.current.position.z = scrolled / 50 - 4;
       cameraYOffset = 0;
-    } else if (scrollOffset.current > 400) {
+    } else if (scrolled > 40) {
       tk.current.rotation.x = Math.PI;
-      tk.current.position.z = scrollOffset.current / 50 - 4;
+      tk.current.position.z = scrolled / 50 - 4;
       cameraYOffset = 0;
     }
     easing.damp3(
@@ -93,7 +92,7 @@ function Scene() {
 
 export default function Playground() {
   return (
-    <ScrollControls>
+    <ScrollControls pages={10}>
       <Scroll>
         <Scene />
       </Scroll>
