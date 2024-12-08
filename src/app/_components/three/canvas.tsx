@@ -59,7 +59,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
       <Float speed={5} floatIntensity={2} rotationIntensity={2}>
         <Lightformer
           form="ring"
-          color="red"
+          color="black"
           intensity={1}
           scale={10}
           position={[-15, 4, -18]}
@@ -72,7 +72,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
         <LayerMaterial side={THREE.BackSide}>
           <Color color="#444" alpha={1} mode="normal" />
           <Depth
-            colorA="white"
+            colorA="#444"
             colorB="black"
             alpha={0.9}
             mode="normal"

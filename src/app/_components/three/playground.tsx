@@ -18,7 +18,7 @@ export default function PlayGround() {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       // Adjust this multiplier to control zoom speed
-      scrollOffset.current += e.deltaY * 0.001;
+      scrollOffset.current += e.deltaY * 0.1;
     };
 
     // Add a wheel event listener to window (or a scrollable container)
@@ -30,28 +30,31 @@ export default function PlayGround() {
     };
   }, []);
   useFrame((state, delta) => {
+    console.log(scrollOffset.current);
     if (!tk.current) return;
-    if (state.clock.getElapsedTime() < 10) {
-    }
-    /*if (state.clock.getElapsedTime() < 10) {
-      tk.current.position.setZ(-50 + 12 * state.clock.getElapsedTime());
-    }*/
+    let cameraYOffset = state.pointer.y * 0.05 + scrollOffset.current - 100;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
-    tk.current.rotation.x = 2;
-    //tk.current.rotation.y = 1 * state.clock.getElapsedTime();
-    //can I just import this as a prop ?????
-    //stolen from https://discourse.threejs.org/t/how-to-create-glass-material-that-refracts-elements-in-dom/53625/3
+    tk.current.rotation.x = Math.PI / 2;
+    if (scrollOffset.current > 100 && scrollOffset.current < 200) {
+      tk.current.rotation.x = ((scrollOffset.current / 100) * Math.PI) / 2;
+      cameraYOffset = 0;
+    }
+    if (scrollOffset.current > 200) {
+      tk.current.rotation.x = (scrollOffset.current / 100) * Math.PI * 2;
+      cameraYOffset -= 100;
+    }
     easing.damp3(
       state.camera.position,
       [
         Math.sin(-state.pointer.x) * 5,
-        state.pointer.y * 5,
-        5 + scrollOffset.current + Math.cos(state.pointer.x) * 2,
+        cameraYOffset,
+        5 + Math.cos(state.pointer.x) * 2,
       ],
       0.1,
       delta,
     );
     state.camera.lookAt(0, 0, 0);
+    console.log(cameraYOffset);
   });
 
   return (
@@ -63,18 +66,16 @@ export default function PlayGround() {
         <Me />
       </DragControls>
       <DragControls>
-        <RigidBody colliders={"hull"} restitution={2}>
-          <mesh ref={tk}>
-            <torusKnotGeometry args={[6, 0.5, 1000, 100, p, q]} />
-            <MeshTransmissionMaterial
-              specularColor={0x0000ff}
-              sheenColor={0x8800ff}
-              thickness={2}
-              backside
-              backsideThickness={1}
-            />
-          </mesh>
-        </RigidBody>
+        <mesh ref={tk}>
+          <torusKnotGeometry args={[7, 0.5, 1000, 100, p, q]} />
+          <MeshTransmissionMaterial
+            specularColor={0x0000ff}
+            sheenColor={0x8800ff}
+            thickness={2}
+            backside
+            backsideThickness={1}
+          />
+        </mesh>
       </DragControls>
     </Physics>
   );
