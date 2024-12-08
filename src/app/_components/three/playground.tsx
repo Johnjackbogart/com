@@ -1,77 +1,79 @@
 "use client";
 import * as THREE from "three";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Physics, RigidBody } from "@react-three/rapier";
-import {
-  Text,
-  OrbitControls,
-  Line,
-  DragControls,
-  MeshTransmissionMaterial,
-} from "@react-three/drei";
+import { Physics } from "@react-three/rapier";
+import { MeshTransmissionMaterial } from "@react-three/drei";
+import { easing } from "maath";
 
-import { Me } from "./Me";
+import { Me } from "./avatar";
 
 export default function PlayGround() {
   const tk = useRef<THREE.Mesh>(null);
+  const scrollOffset = useRef(0);
 
-  let p = 10;
-  let q = 10;
+  const p = 31;
+  const q = 5;
 
-  useFrame((state) => {
-    p = Math.ceil(
-      Math.abs(100 * Math.sin(0.0002 * state.clock.getElapsedTime())),
-    );
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      // Adjust this multiplier to control zoom speed
+      scrollOffset.current += e.deltaY * 0.1;
+    };
 
-    q = Math.ceil(
-      Math.abs(200 * Math.sin(0.0003 * state.clock.getElapsedTime())),
-    );
+    // Add a wheel event listener to window (or a scrollable container)
+    window.addEventListener("wheel", handleWheel, { passive: true });
 
-    if (tk.current) {
-      tk.current.rotation.y = 1 * state.clock.getElapsedTime();
-      //tk.current.rotation.x = (1 * state.clock.getElapsedTime()) / 2;
-
-      //this is the only way...
-      //https://stackoverflow.com/questions/40933735/three-js-cube-geometry-how-to-update-parameters
-      tk.current.geometry.dispose();
-      tk.current.geometry = new THREE.TorusKnotGeometry(
-        2,
-        0.21,
-        10000,
-        10,
-        p,
-        q,
-      );
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+  useFrame((state, delta) => {
+    if (!tk.current) return;
+    let cameraYOffset = state.pointer.y * 0.05 + scrollOffset.current - 100;
+    const cameraZOffset = 5 + Math.cos(state.pointer.x) * 2;
+    tk.current.rotation.z = 1 * state.clock.getElapsedTime();
+    tk.current.rotation.x = Math.PI / 2;
+    if (scrollOffset.current > 100 && scrollOffset.current < 200) {
+      cameraYOffset = 0;
     }
+    if (scrollOffset.current > 200 && scrollOffset.current < 400) {
+      console.log(scrollOffset.current);
+      tk.current.rotation.x = (scrollOffset.current / 400) * Math.PI;
+      tk.current.position.z = scrollOffset.current / 50 - 2;
+      cameraYOffset = 0;
+    }
+    if (scrollOffset.current > 400) {
+      tk.current.rotation.x = Math.PI;
+      tk.current.position.z = scrollOffset.current / 50 - 2;
+      cameraYOffset = 0;
+    }
+    easing.damp3(
+      state.camera.position,
+      [Math.sin(-state.pointer.x) * 5, cameraYOffset, cameraZOffset],
+      0.1,
+      delta,
+    );
+    state.camera.lookAt(0, 0, 0);
   });
 
   return (
     <Physics gravity={[0, 0, 0]}>
-      <Text color="green">yooo</Text>
-      <Line
-        points={[
-          [0, 0, 0],
-          [1, 1, 1],
-        ]}
-      />
-      <ambientLight intensity={1} />
-
-      <pointLight position={[0, 0, 0]} />
-      <OrbitControls />
-      <DragControls>
-        <Me />
-      </DragControls>
-      <RigidBody colliders={"hull"} restitution={2}>
-        <mesh ref={tk}>
-          <torusKnotGeometry args={[2, 0.001, 1000, 1000, p, q]} />
-          <MeshTransmissionMaterial
-            thickness={2}
-            backside
-            backsideThickness={1}
-          />
-        </mesh>
-      </RigidBody>
+      <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={0.2} />
+      <ambientLight color="white" intensity={1} />
+      <pointLight position={[0, 0, 3]} />
+      <Me />
+      <mesh ref={tk}>
+        <torusKnotGeometry args={[7, 0.5, 1000, 100, p, q]} />
+        <MeshTransmissionMaterial
+          specularColor={0xffffff}
+          sheenColor={0xffffff}
+          thickness={2}
+          backside
+          backsideThickness={1}
+        />
+      </mesh>
     </Physics>
   );
 }

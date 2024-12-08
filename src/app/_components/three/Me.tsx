@@ -4,8 +4,8 @@ Command: npx gltfjsx@6.5.2 -t public/me.glb
 */
 
 import * as THREE from "three";
-import { useRef, useMemo, Ref } from "react";
-import { useGraph } from "@react-three/fiber";
+import { useEffect, useRef, useMemo, Ref } from "react";
+import { useGraph, useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { GLTF, SkeletonUtils } from "three-stdlib";
 
@@ -38,6 +38,24 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone) as GLTFResult;
   const { actions } = useAnimations(animations, group);
+
+  useEffect(() => {
+    if (!actions) return;
+    actions.Just_chilling_Clean?.play();
+  });
+  useFrame((state) => {
+    if (!group.current) return;
+    //probably need to modify this for mobile vs desktop
+    //also, probably should be 15.5
+    if (
+      state.clock.getElapsedTime() > 10 &&
+      state.clock.getElapsedTime() < 15.5
+    ) {
+      group.current.position.setZ(state.clock.getElapsedTime() - 10);
+      group.current.position.setY((10 - state.clock.getElapsedTime()) / 10);
+      console.log(group.current.position);
+    }
+  });
   return (
     <group ref={group as Ref<THREE.Group>} {...props} dispose={null}>
       <group name="Scene">

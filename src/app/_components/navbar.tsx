@@ -11,6 +11,7 @@ import {
 } from "#/dropdown-menu";
 import JackBogart from "^/JackBogart";
 import Github from "^/GitHub";
+import pkg from "!/package.json";
 
 export const Nav = () => {
   const { theme, setTheme } = useTheme();
@@ -26,13 +27,7 @@ export const Nav = () => {
       <div className={"ml-auto flex items-center gap-1"}>
         <Button
           onClick={() => {
-            window.open(
-              //https://stackoverflow.com/questions/50822310/how-to-import-package-json-in-typescript
-              //I don't think this will break anything on vercel??
-              process.env.npm_package_homepage,
-              "_blank",
-              "noopener noreferrer",
-            );
+            window.open(pkg.homepage, "_blank", "noopener noreferrer");
           }}
           variant={"ghost"}
           className={"ml-auto flex items-center gap-1.5"}
