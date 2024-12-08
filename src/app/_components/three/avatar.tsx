@@ -62,7 +62,6 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
     };
   }, []);
   useEffect(() => {
-    console.log(names);
     if (!actions || !names || index < 0 || index >= names.length) return;
 
     const actionName = names[index];
@@ -76,13 +75,17 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
     };
   }, [index, actions, names]);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (!me.current) return;
     //probably need to modify this for mobile vs desktop
     if (scrollOffset.current > 50 && scrollOffset.current < 100) {
       me.current.position.setZ((scrollOffset.current - 100) / 10 + 5);
     }
+    if (scrollOffset.current > 100 && scrollOffset.current < 200) {
+      me.current.position.setZ((scrollOffset.current - 100) / 100 + 5);
+    }
     if (scrollOffset.current > 200) {
+      me.current.position.setZ(5);
       setIndex(4);
     }
   });
