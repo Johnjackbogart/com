@@ -35,6 +35,20 @@ export default function Effects() {
   }, []);
 
   useFrame((state, delta) => {
+    //can I just import this as a prop ?????
+    //stolen from https://discourse.threejs.org/t/how-to-create-glass-material-that-refracts-elements-in-dom/53625/3
+    easing.damp3(
+      state.camera.position,
+      [
+        Math.sin(-state.pointer.x) * 5,
+        state.pointer.y * 5,
+        5 + Math.cos(state.pointer.x) * 2,
+      ],
+      0.1,
+      delta,
+    );
+    state.camera.lookAt(0, 0, 0);
+
     if (!chromaEffect) return;
     const x = Math.sin(-state.pointer.x) / 100;
     const y = state.pointer.y / 100;
