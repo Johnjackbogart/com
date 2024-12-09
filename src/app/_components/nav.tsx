@@ -14,7 +14,7 @@ import Github from "^/GitHub";
 import pkg from "!/package.json";
 
 export const Nav = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   return (
     <div
       className={
@@ -22,7 +22,7 @@ export const Nav = () => {
       }
     >
       <div className={"mt-auto"}>
-        <JackBogart theme={theme} />
+        <JackBogart theme={resolvedTheme} />
       </div>
       <div className={"ml-auto flex items-center gap-1"}>
         <Button

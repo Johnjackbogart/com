@@ -163,7 +163,7 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
 
   useFrame(() => {
     const scrolled = scroll.offset * 100;
-    console.log(scrolled);
+    console.log(me.current)
     if (!me.current) return;
     //probably need to modify this for mobile vs desktop
     if (scrolled < 10) {
