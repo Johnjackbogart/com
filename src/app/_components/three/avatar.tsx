@@ -7,7 +7,7 @@ import * as THREE from "three";
 import React from "react";
 import { useEffect, useState, useRef, Ref } from "react";
 import { useGraph, useFrame } from "@react-three/fiber";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useAnimations, useGLTF, useScroll } from "@react-three/drei";
 import { GLTF, SkeletonUtils } from "three-stdlib";
 
 type ActionName =
@@ -39,32 +39,18 @@ type GLTFResult = GLTF & {
 };
 
 export function Me(props: JSX.IntrinsicElements["group"]) {
-  const me = React.useRef<THREE.Group>();
-  const scrollOffset = useRef(0);
+  const me = React.useRef<THREE.Group>(null);
+  const scroll = useScroll();
   const { scene, animations } = useGLTF("/imchill.glb");
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone) as GLTFResult;
   const { actions, names } = useAnimations(animations, me);
-  const [index, setIndex] = useState(0);
+  const [action, setAction] = useState(0);
 
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // Adjust this multiplier to control zoom speed
-      scrollOffset.current += e.deltaY * 0.1;
-    };
+    if (!actions || !names || action < 0 || action >= names.length) return;
 
-    // Add a wheel event listener to window (or a scrollable container)
-    window.addEventListener("wheel", handleWheel, { passive: true });
-
-    // Cleanup the event listener on unmount
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-    };
-  }, []);
-  useEffect(() => {
-    if (!actions || !names || index < 0 || index >= names.length) return;
-
-    const actionName = names[index];
+    const actionName = names[action];
     if (!actionName) return;
 
     const currentAction = actions[actionName];
@@ -73,29 +59,24 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
     return () => {
       currentAction.fadeOut(0.5);
     };
-  }, [index, actions, names]);
+  }, [action, actions, names]);
 
   useFrame(() => {
+    const scrolled = scroll.offset * 100;
     if (!me.current) return;
     //probably need to modify this for mobile vs desktop
-    if (scrollOffset.current > 50 && scrollOffset.current < 100) {
-      me.current.position.setZ((scrollOffset.current - 100) / 10 + 5);
-    }
-    if (scrollOffset.current > 100 && scrollOffset.current < 200) {
-      me.current.position.setZ((scrollOffset.current - 100) / 100 + 5);
-    }
-    if (scrollOffset.current > 200) {
+    if (scrolled < 10) {
+      setAction(0);
+    } else if (scrolled > 10 && scrolled < 20) {
+      me.current.position.setZ((scrolled - 10) / 2);
+      console.log(me.current.position);
+    } else if (scrolled > 20) {
       me.current.position.setZ(5);
-      setIndex(4);
+      setAction(4);
     }
   });
   return (
-    <group
-      position={[0, -1, -10]}
-      ref={me as Ref<THREE.Group>}
-      {...props}
-      dispose={null}
-    >
+    <group position={[0, -1, -10]} ref={me} {...props} dispose={null}>
       <group name="Scene">
         <group name="Armature">
           <primitive object={nodes.Hips} />
