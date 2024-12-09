@@ -59,60 +59,6 @@ type ActionName =
   | "yippee"
   | "yup";
 
-/*
-const actions = {
-  aerial: ,
-  backflip:,
-  ballerina: ,
-  box: ,
-  brag: ,
-  callme: ,
-  cartwheel: ,
-  catw: ,
-  cautious: ,
-  celebrate: ,
-  cheer: ,
-  chill: ,
-  concert: ,
-  conduct: ,
-  curtsy: ,
-  dance: ,
-  facepalm: ,
-  fingergun: ,
-  flex: ,
-  getatme: ,
-  gorilla: ,
-  hey: ,
-  kick: ,
-  kickfroze: ,
-  lean: ,
-  muaythai: ,
-  pose: ,
-  pounce: ,
-  punch: ,
-  punk: ,
-  push: ,
-  pushup: ,
-  ready: ,
-  run: ,
-  runpose: ,
-  search: ,
-  shadowbox: ,
-  sit: ,
-  smoke: ,
-  sneaky: ,
-  soccer: ,
-  sprintfroze: ,
-  superhero: ,
-  tantrum: ,
-  warmup: ,
-  woah: ,
-  yippee: ,
-  yup: ,
-
-
-}*/
-
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName;
 }
@@ -134,7 +80,7 @@ type GLTFResult = GLTF & {
   animations: GLTFAction[];
 };
 
-export function Me(props: JSX.IntrinsicElements["group"]) {
+export default function Me(props: JSX.IntrinsicElements["group"]) {
   const me = useRef<THREE.Group>(null);
   const scroll = useScroll();
   const { scene, animations } = useGLTF("/me.glb");
@@ -163,7 +109,7 @@ export function Me(props: JSX.IntrinsicElements["group"]) {
 
   useFrame(() => {
     const scrolled = scroll.offset * 100;
-    console.log(me.current)
+    console.log(me.current);
     if (!me.current) return;
     //probably need to modify this for mobile vs desktop
     if (scrolled < 10) {
