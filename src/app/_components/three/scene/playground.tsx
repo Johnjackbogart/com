@@ -2,17 +2,20 @@
 import * as THREE from "three";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Physics } from "@react-three/rapier";
 import {
   MeshTransmissionMaterial,
-  Svg,
   ScrollControls,
-  Scroll,
+  Scroll as DreiScroll,
   useScroll,
 } from "@react-three/drei";
 import { easing } from "maath";
 
-import { Me } from "./me";
+import Me from "../me";
+import Scroll from "../svg/scroll";
+import Hi from "../svg/hi";
+import Hello from "../svg/hello";
+import ImJohn from "../svg/imjohn";
+import CallMeJack from "../svg/callmejack";
 
 function Scene() {
   const tk = useRef<THREE.Mesh>(null);
@@ -51,14 +54,11 @@ function Scene() {
 
   return (
     <>
-      <Svg
-        src={"scroll.svg"}
-        position={[-50, 0, 50]}
-        scale={0.1}
-        rotation={new THREE.Euler(Math.PI / 2, 0, 0)}
-        fillMaterial={{ color: "white" }}
-        strokeMaterial={{ color: "black" }}
-      />
+      <Hi />
+      <Scroll />
+      <Hello />
+      <ImJohn />
+      <CallMeJack />
       <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={0.2} />
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />
@@ -80,9 +80,9 @@ function Scene() {
 export default function Playground() {
   return (
     <ScrollControls pages={10} damping={0.1}>
-      <Scroll>
+      <DreiScroll>
         <Scene />
-      </Scroll>
+      </DreiScroll>
     </ScrollControls>
   );
 }

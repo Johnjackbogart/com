@@ -1,4 +1,4 @@
-import PlayGround from "&/three/playground";
+import PlayGround from "&/three/scene/playground";
 import ThreeCanvas from "&/three/canvas";
 import { HydrateClient } from "@/trpc/server";
 
