@@ -10,7 +10,7 @@ import {
 } from "@react-three/drei";
 import { easing } from "maath";
 
-import Me from "../me";
+import Me from "./me";
 import Scroll from "../svg/scroll";
 import Hi from "../svg/hi";
 import Hello from "../svg/hello";
