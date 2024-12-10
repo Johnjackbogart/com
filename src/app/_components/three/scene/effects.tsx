@@ -11,10 +11,12 @@ import {
 } from "@react-three/postprocessing";
 import { ChromaticAberrationEffect, BlendFunction } from "postprocessing";
 import { easing } from "maath";
+import { useThemeToFill } from "&/theme";
 
 export default function Effects() {
   let chromaEffect: ChromaticAberrationEffect | null = null;
   let offset = new THREE.Vector2(0.1, 0.1);
+  const theming = useThemeToFill();
 
   // Use a ref to store the scroll-based zoom offset
   const scrollOffset = useRef(0);
@@ -68,7 +70,12 @@ export default function Effects() {
         radialModulation={false}
         modulationOffset={1.0}
       />
-      <Bloom mipmapBlur luminanceThreshold={0.8} intensity={-2} levels={8} />
+      <Bloom
+        mipmapBlur
+        luminanceThreshold={0.8}
+        intensity={theming?.bloom}
+        levels={8}
+      />
       <TiltShift2 blur={0.2} />
     </EffectComposer>
   );

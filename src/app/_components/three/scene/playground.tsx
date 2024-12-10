@@ -9,6 +9,7 @@ import {
   useScroll,
 } from "@react-three/drei";
 import { easing } from "maath";
+import { useThemeToFill } from "&/theme";
 
 import Me from "./me";
 import Scroll from "../svg/scroll";
@@ -18,6 +19,7 @@ import ImJohn from "../svg/imjohn";
 import CallMeJack from "../svg/callmejack";
 
 function Scene() {
+  const theming = useThemeToFill();
   const tk = useRef<THREE.Mesh>(null);
   const scroll = useScroll();
 
@@ -54,8 +56,8 @@ function Scene() {
 
   return (
     <>
-      <Hi />
-      <Scroll />
+      <Hi fill={theming?.fill} />
+      <Scroll fill={theming?.fill} />
       <Hello />
       <ImJohn />
       <CallMeJack />

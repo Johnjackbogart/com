@@ -13,11 +13,10 @@ interface headerProps extends SVGProps<SVGSVGElement> {
 const lightFill: headerFill = { foreground: "#fff", background: "#000" };
 const darkFill: headerFill = { foreground: "#000", background: "#fff" };
 
-const JackBogart = (props: headerProps) => {
+const JackBogart = ({ theme }: headerProps) => {
+  if (!theme) return;
   const fill: headerFill =
-    props.theme === "dark" || props.theme === "system" || !props.theme
-      ? darkFill
-      : lightFill;
+    theme === "dark" || theme === "system" || !theme ? darkFill : lightFill;
 
   return (
     <svg

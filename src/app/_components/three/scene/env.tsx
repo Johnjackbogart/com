@@ -3,19 +3,33 @@ import * as THREE from "three";
 import { Environment, Lightformer, Float } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { LayerMaterial, Depth, Color } from "lamina";
-export function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
+import { type Theme } from "&/theme";
+
+interface envProps {
+  theming: Theme;
+}
+
+interface lfProps {
+  positions?: number[];
+  theming: Theme;
+}
+
+export function Lightformers({
+  positions = [2, 0, 2, 0, 2, 0, 2, 0],
+  theming,
+}: lfProps) {
   const group = useRef<THREE.Group>(null);
   useFrame((state, delta) => {
     if (!group.current) return;
-    group.current.position.z += delta * 10;
-    group.current.position.z = -60;
+    group.current.position.z += delta * 100;
   });
+  if (!theming) return;
   return (
     <>
       {/* Ceiling */}
       <Lightformer
         intensity={0.75}
-        color="black"
+        color={`${theming?.background}`}
         rotation-x={Math.PI / 2}
         position={[0, 5, -9]}
         scale={[10, 10, 1]}
@@ -37,27 +51,31 @@ export function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
       {/* Sides */}
       <Lightformer
         intensity={4}
-        color="#f3f3f3"
+        //color="#f3f3f3"
+        color={`${theming?.background}`}
         rotation-y={Math.PI / 2}
         position={[-5, 1, -1]}
         scale={[20, 0.1, 1]}
       />
       <Lightformer
         rotation-y={Math.PI / 2}
-        color="#3f3f3f"
+        //color="#3f3f3f"
+        color={`${theming?.background}`}
         position={[-5, -1, -1]}
         scale={[20, 0.5, 1]}
       />
       <Lightformer
         rotation-y={-Math.PI / 2}
-        color="#111"
+        //color="#111"
+        color={`${theming?.fill}`}
         position={[10, 1, 0]}
         scale={[20, 1, 1]}
       />
       <Float speed={5} floatIntensity={2} rotationIntensity={2}>
         <Lightformer
           form="ring"
-          color="white"
+          //color="white"
+          color={`${theming?.background}`}
           intensity={1}
           scale={10}
           position={[-15, 4, -18]}
@@ -68,9 +86,10 @@ export function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
       <mesh scale={50}>
         <sphereGeometry args={[1, 64, 64]} />
         <LayerMaterial side={THREE.BackSide}>
-          <Color color="#000" alpha={0.9} mode="normal" />
+          <Color color={`${theming?.background}`} alpha={0.1} mode="normal" />
           <Depth
-            colorA="white"
+            //colorA="white"
+            colorA={`${theming?.background}`}
             colorB="black"
             alpha={1}
             mode="normal"
@@ -83,7 +102,7 @@ export function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
     </>
   );
 }
-export default function Env() {
+export default function Env({ theming }: envProps) {
   return (
     <Environment
       frames={Infinity}
@@ -91,7 +110,7 @@ export default function Env() {
       background
       backgroundBlurriness={1}
     >
-      <Lightformers />
+      <Lightformers theming={theming} />
     </Environment>
   );
 }
