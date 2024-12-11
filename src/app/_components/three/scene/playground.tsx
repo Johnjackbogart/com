@@ -1,7 +1,7 @@
 "use client";
 import * as THREE from "three";
-import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
 import {
   MeshTransmissionMaterial,
   ScrollControls,
@@ -19,6 +19,8 @@ import ImJohn from "../svg/imjohn";
 import CallMeJack from "../svg/callmejack";
 
 function Scene() {
+  const { camera, size, invalidate } = useThree();
+  const perspectiveCamera = camera as THREE.PerspectiveCamera;
   const theming = useThemeToFill();
   const tk = useRef<THREE.Mesh>(null);
   const scroll = useScroll();
@@ -27,6 +29,7 @@ function Scene() {
   const q = 5;
 
   useFrame((state, delta) => {
+    //console.log(camera);
     if (!tk.current) return;
     const scrolled = scroll.offset * 100;
     let cameraYOffset = state.pointer.y * 0.05 + scrolled * 10 - 100;
@@ -45,6 +48,7 @@ function Scene() {
       tk.current.position.z = scrolled / 5 - 4;
       cameraYOffset = 0;
     }
+
     easing.damp3(
       state.camera.position,
       [Math.sin(-state.pointer.x) * 5, cameraYOffset, cameraZOffset],
@@ -61,7 +65,7 @@ function Scene() {
       <Hello />
       <ImJohn />
       <CallMeJack />
-      <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={0.2} />
+      <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={1} />
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />
       <Me />
@@ -81,7 +85,10 @@ function Scene() {
 
 export default function Playground() {
   return (
-    <ScrollControls pages={10} damping={0.1}>
+    //scroll controls breaks canvas when pages not equal to 1
+    //if screen is resized, or canvas is moved, camera produces weird activity
+    //setting distance to 10 produces the same behavior that I'm initially looking for
+    <ScrollControls pages={1} damping={0.01} distance={10}>
       <DreiScroll>
         <Scene />
       </DreiScroll>

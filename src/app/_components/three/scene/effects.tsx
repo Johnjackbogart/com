@@ -15,26 +15,8 @@ import { useThemeToFill } from "&/theme";
 
 export default function Effects() {
   let chromaEffect: ChromaticAberrationEffect | null = null;
-  let offset = new THREE.Vector2(0.1, 0.1);
+  let offset = useRef(new THREE.Vector2(0.1, 0.1));
   const theming = useThemeToFill();
-
-  // Use a ref to store the scroll-based zoom offset
-  const scrollOffset = useRef(0);
-
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // Adjust this multiplier to control zoom speed
-      scrollOffset.current += e.deltaY * 0.001;
-    };
-
-    // Add a wheel event listener to window (or a scrollable container)
-    window.addEventListener("wheel", handleWheel, { passive: true });
-
-    // Cleanup the event listener on unmount
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-    };
-  }, []);
 
   useFrame((state, delta) => {
     //can I just import this as a prop ?????
@@ -54,8 +36,8 @@ export default function Effects() {
     if (!chromaEffect) return;
     const x = Math.sin(-state.pointer.x) / 100;
     const y = state.pointer.y / 100;
-    offset = new THREE.Vector2(x, y);
-    chromaEffect.offset = offset;
+    offset.current.set(x, y);
+    chromaEffect.offset = offset.current;
   });
   return (
     <EffectComposer enableNormalPass={true}>
