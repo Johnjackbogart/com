@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import type { SVGProps } from "react";
 import { Svg } from "@react-three/drei";
-interface hiProps extends SVGProps<SVGSVGElement> {
+interface hiProps {
   fill: string | undefined;
 }
 export default function Hi({ fill }: hiProps) {

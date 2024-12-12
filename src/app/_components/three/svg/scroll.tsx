@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import type { SVGProps } from "react";
 import { Svg } from "@react-three/drei";
-interface scrollProps extends SVGProps<SVGSVGElement> {
+interface scrollProps {
   fill: string | undefined;
 }
 export default function Scroll({ fill }: scrollProps) {

@@ -29,7 +29,6 @@ function Scene() {
   const q = 5;
 
   useFrame((state, delta) => {
-    //console.log(camera);
     if (!tk.current) return;
     const scrolled = scroll.offset * 100;
     let cameraYOffset = state.pointer.y * 0.05 + scrolled * 10 - 100;
@@ -37,13 +36,13 @@ function Scene() {
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
     tk.current.rotation.x = Math.PI / 2;
 
-    if (scrolled > 10 && scrolled < 20) {
+    if (scrolled > 10 && scrolled < 30) {
       cameraYOffset = 0;
-    } else if (scrolled > 20 && scrolled < 40) {
-      tk.current.rotation.x = ((scrolled - 20) * Math.PI) / 40 + Math.PI / 2;
+    } else if (scrolled > 30 && scrolled < 50) {
+      tk.current.rotation.x = ((scrolled - 30) * Math.PI) / 40 + Math.PI / 2;
       tk.current.position.z = scrolled / 5 - 4;
       cameraYOffset = 0;
-    } else if (scrolled > 40) {
+    } else if (scrolled > 50) {
       tk.current.rotation.x = Math.PI;
       tk.current.position.z = scrolled / 5 - 4;
       cameraYOffset = 0;
@@ -66,9 +65,9 @@ function Scene() {
     <>
       <Hi fill={theming?.fill} />
       <Scroll fill={theming?.fill} />
-      <Hello />
-      <ImJohn />
-      <CallMeJack />
+      <Hello fill={theming?.fill} />
+      <ImJohn fill={theming?.fill} />
+      <CallMeJack fill={theming?.fill} />
       <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={1} />
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />
