@@ -26,9 +26,9 @@ const textPositions: TextPositions = isMobile
       callMeJack: new THREE.Vector3(-0.5, -1.5, 5),
     }
   : {
-      hello: new THREE.Vector3(1, 1.5, 5),
-      imJohn: new THREE.Vector3(1, 0.5, 5),
-      callMeJack: new THREE.Vector3(1, -1, 5),
+      hello: new THREE.Vector3(-1.25, 2, 5),
+      imJohn: new THREE.Vector3(0.5, 2, 5),
+      callMeJack: new THREE.Vector3(-0.5, -1.5, 5),
     };
 
 interface TextPositions {

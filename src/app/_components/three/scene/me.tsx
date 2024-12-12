@@ -114,10 +114,11 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
     if (scrolled < 10) {
       setAction(animationActions.chill);
     } else if (scrolled > 10 && scrolled < 20) {
-      me.current.position.setZ((scrolled - 10) / 2);
+      //moves me to 5.5
+      me.current.position.setZ(((scrolled - 10) * 11) / 20);
       setAction(animationActions.gorilla);
     } else if (scrolled > 20 && scrolled < 25) {
-      me.current.position.setZ(5);
+      me.current.position.setZ(5.5);
     } else if (scrolled > 25 && scrolled < 40) {
       setAction(animationActions.chill);
     } else if (scrolled > 40 && scrolled < 50) {
