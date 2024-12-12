@@ -1,14 +1,16 @@
 import { Svg } from "@react-three/drei";
+import { type ThemeFill } from "&/theme";
 interface helloProps {
-  fill: string | undefined;
+  theming: ThemeFill;
 }
-export default function Hello({ fill }: helloProps) {
+export default function Hello({ theming }: helloProps) {
+  if (!theming) return;
   return (
     <Svg
       src={"hello.svg"}
-      position={[1, 1, 5]}
+      position={theming.textPositions.hello}
       scale={0.001}
-      fillMaterial={{ color: `${fill}` }}
+      fillMaterial={{ color: `${theming.fill}` }}
       strokeMaterial={{ color: "black" }}
     />
   );

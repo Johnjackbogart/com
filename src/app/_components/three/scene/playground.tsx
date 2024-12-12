@@ -63,11 +63,11 @@ function Scene() {
 
   return (
     <>
-      <Hi fill={theming?.fill} />
-      <Scroll fill={theming?.fill} />
-      <Hello fill={theming?.fill} />
-      <ImJohn fill={theming?.fill} />
-      <CallMeJack fill={theming?.fill} />
+      <Hi theming={theming!} />
+      <Scroll theming={theming!} />
+      <Hello theming={theming!} />
+      <ImJohn theming={theming!} />
+      <CallMeJack theming={theming!} />
       <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={1} />
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />

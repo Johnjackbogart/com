@@ -7,7 +7,6 @@ import {
   Bloom,
   ChromaticAberration,
   EffectComposer,
-  TiltShift2,
 } from "@react-three/postprocessing";
 import { ChromaticAberrationEffect, BlendFunction } from "postprocessing";
 import { easing } from "maath";
@@ -60,7 +59,6 @@ export default function Effects() {
         intensity={theming?.bloom}
         levels={8}
       />
-      <TiltShift2 blur={0.2} />
     </EffectComposer>
   );
 }

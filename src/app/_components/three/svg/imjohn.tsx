@@ -1,14 +1,16 @@
 import { Svg } from "@react-three/drei";
-interface imJohnProps {
-  fill: string | undefined;
+import { type ThemeFill } from "&/theme";
+interface ImJohnProps {
+  theming: ThemeFill;
 }
-export default function ImJohn({ fill }: imJohnProps) {
+export default function ImJohn({ theming }: ImJohnProps) {
+  if (!theming) return;
   return (
     <Svg
       src={"imjohn.svg"}
-      position={[1, 0, 5]}
+      position={theming.textPositions.imJohn}
       scale={0.001}
-      fillMaterial={{ color: `${fill}` }}
+      fillMaterial={{ color: `${theming.fill}` }}
       strokeMaterial={{ color: "black" }}
     />
   );

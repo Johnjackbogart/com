@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import * as THREE from "three";
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
+import { isMobile } from "react-device-detect";
 
 //https://github.com/shadcn-ui/ui/issues/5706
 type ThemeProviderProps = React.ComponentProps<typeof NextThemesProvider>;
@@ -17,6 +19,23 @@ export default function ThemeProvider({
   );
 }
 
+const textPositions: TextPositions = isMobile
+  ? {
+      hello: new THREE.Vector3(-1.25, 2, 5),
+      imJohn: new THREE.Vector3(0.5, 2, 5),
+      callMeJack: new THREE.Vector3(-0.5, -1.5, 5),
+    }
+  : {
+      hello: new THREE.Vector3(1, 1.5, 5),
+      imJohn: new THREE.Vector3(1, 0.5, 5),
+      callMeJack: new THREE.Vector3(1, -1, 5),
+    };
+
+interface TextPositions {
+  hello: THREE.Vector3;
+  imJohn: THREE.Vector3;
+  callMeJack: THREE.Vector3;
+}
 interface Background {
   background: string;
 }
@@ -45,8 +64,10 @@ export interface ThemeFill {
   theme: Themes;
   bloom: Bloom;
   isSystem: boolean;
+  isMobile: boolean;
   fill: string;
   background: string;
+  textPositions: TextPositions;
 }
 
 export type Theme = ThemeFill | undefined | null;
@@ -85,8 +106,10 @@ export function useThemeToFill() {
     theme: theme,
     bloom: bloom,
     isSystem: isSystem,
+    isMobile: isMobile,
     fill: fills[theme].fill,
     background: backgrounds[theme].background,
+    textPositions: textPositions,
   };
 
   return theming;

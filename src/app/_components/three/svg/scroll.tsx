@@ -1,17 +1,18 @@
 import * as THREE from "three";
 import { Svg } from "@react-three/drei";
+import { type ThemeFill } from "&/theme";
 interface scrollProps {
-  fill: string | undefined;
+  theming: ThemeFill;
 }
-export default function Scroll({ fill }: scrollProps) {
-  if (!fill) return;
+export default function Scroll({ theming }: scrollProps) {
+  if (!theming) return;
   return (
     <Svg
       src={"scroll.svg"}
-      position={[-50, 0, -50]}
+      position={[-40, 0, -50]}
       scale={0.1}
       rotation={new THREE.Euler(Math.PI / 2, 0, 0)}
-      fillMaterial={{ color: `${fill}` }}
+      fillMaterial={{ color: `${theming.fill}` }}
       strokeMaterial={{ color: "black" }}
     />
   );

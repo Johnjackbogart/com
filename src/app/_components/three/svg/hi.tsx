@@ -1,17 +1,18 @@
 import * as THREE from "three";
 import { Svg } from "@react-three/drei";
+import { type ThemeFill } from "&/theme";
 interface hiProps {
-  fill: string | undefined;
+  theming: ThemeFill;
 }
-export default function Hi({ fill }: hiProps) {
-  if (!fill) return;
+export default function Hi({ theming }: hiProps) {
+  if (!theming) return;
   return (
     <Svg
       src={"hi.svg"}
-      position={[-50, 0, 50]}
+      position={[-40, 0, 75]}
       scale={0.1}
       rotation={new THREE.Euler(Math.PI / 2, 0, 0)}
-      fillMaterial={{ color: `${fill}` }}
+      fillMaterial={{ color: `${theming.fill}` }}
       strokeMaterial={{ color: "black" }}
     />
   );
