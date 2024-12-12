@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import {
@@ -11,12 +11,14 @@ import {
 } from "@react-three/postprocessing";
 import { ChromaticAberrationEffect, BlendFunction } from "postprocessing";
 import { easing } from "maath";
+import { isMobile } from "react-device-detect";
 import { useThemeToFill } from "&/theme";
 
 export default function Effects() {
-  let chromaEffect: ChromaticAberrationEffect | null = null;
-  let offset = useRef(new THREE.Vector2(0.1, 0.1));
   const theming = useThemeToFill();
+  const mobileMultiplier = isMobile ? 0.1 : 1;
+  let chromaEffect: ChromaticAberrationEffect | null = null;
+  const offset = useRef(new THREE.Vector2(0.05, 0.05));
 
   useFrame((state, delta) => {
     //can I just import this as a prop ?????
@@ -24,11 +26,11 @@ export default function Effects() {
     easing.damp3(
       state.camera.position,
       [
-        Math.sin(-state.pointer.x) * 5,
-        state.pointer.y * 5,
-        5 + Math.cos(state.pointer.x) * 2,
+        mobileMultiplier * Math.sin(-state.pointer.x) * 2.5,
+        mobileMultiplier * state.pointer.y * 5,
+        mobileMultiplier * 5 + Math.cos(state.pointer.x) * 2,
       ],
-      0.1,
+      1,
       delta,
     );
     state.camera.lookAt(0, 0, 0);

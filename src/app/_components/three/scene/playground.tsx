@@ -1,7 +1,7 @@
 "use client";
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import {
   MeshTransmissionMaterial,
   ScrollControls,
@@ -9,7 +9,7 @@ import {
   useScroll,
 } from "@react-three/drei";
 import { easing } from "maath";
-import { useThemeToFill } from "&/theme";
+import { isMobile } from "react-device-detect";
 
 import Me from "./me";
 import Scroll from "../svg/scroll";
@@ -17,13 +17,13 @@ import Hi from "../svg/hi";
 import Hello from "../svg/hello";
 import ImJohn from "../svg/imjohn";
 import CallMeJack from "../svg/callmejack";
+import { useThemeToFill } from "&/theme";
 
 function Scene() {
-  const { camera, size, invalidate } = useThree();
-  const perspectiveCamera = camera as THREE.PerspectiveCamera;
   const theming = useThemeToFill();
   const tk = useRef<THREE.Mesh>(null);
   const scroll = useScroll();
+  const mobileMultiplier = isMobile ? 0.1 : 1;
 
   const p = 31;
   const q = 5;
@@ -51,7 +51,11 @@ function Scene() {
 
     easing.damp3(
       state.camera.position,
-      [Math.sin(-state.pointer.x) * 5, cameraYOffset, cameraZOffset],
+      [
+        mobileMultiplier * Math.sin(-state.pointer.x) * 2.5,
+        cameraYOffset,
+        cameraZOffset,
+      ],
       0.01,
       delta,
     );
