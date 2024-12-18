@@ -10,14 +10,9 @@ import {
 } from "@react-three/drei";
 import { easing } from "maath";
 import { isMobile } from "react-device-detect";
-
-import Me from "./me";
-import Scroll from "../svg/scroll";
-import Hi from "../svg/hi";
-import Hello from "../svg/hello";
-import ImJohn from "../svg/imjohn";
-import CallMeJack from "../svg/callmejack";
 import { useThemeToFill } from "&/theme";
+import Text from "./text/text";
+import Me from "./me";
 
 function Scene() {
   const theming = useThemeToFill();
@@ -40,11 +35,11 @@ function Scene() {
       cameraYOffset = 0;
     } else if (scrolled > 30 && scrolled < 50) {
       tk.current.rotation.x = ((scrolled - 30) * Math.PI) / 40 + Math.PI / 2;
-      tk.current.position.z = scrolled / 5 - 4;
+      tk.current.position.z = scrolled / 5 - 6;
       cameraYOffset = 0;
     } else if (scrolled > 50) {
       tk.current.rotation.x = Math.PI;
-      tk.current.position.z = scrolled / 5 - 4;
+      tk.current.position.z = scrolled / 5 - 6;
       cameraYOffset = 0;
     }
 
@@ -63,11 +58,7 @@ function Scene() {
 
   return (
     <>
-      <Hi theming={theming!} />
-      <Scroll theming={theming!} />
-      <Hello theming={theming!} />
-      <ImJohn theming={theming!} />
-      <CallMeJack theming={theming!} />
+      <Text theming={theming!} />
       <spotLight position={[0, 0, 3]} penumbra={100} castShadow angle={1} />
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />

@@ -8,6 +8,7 @@ export const env = createEnv({
    */
   server: {
     ELEVEN: z.string(),
+    ELEVEN_VOICE: z.enum(["ME"]),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -28,6 +29,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     ELEVEN: process.env.ELEVEN,
+    ELEVEN_VOICE: process.env.ELEVEN_VOICE,
     NODE_ENV: process.env.NODE_ENV,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },

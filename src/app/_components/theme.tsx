@@ -24,17 +24,23 @@ const textPositions: TextPositions = isMobile
       hello: new THREE.Vector3(-1.25, 2, 5),
       imJohn: new THREE.Vector3(0.5, 2, 5),
       callMeJack: new THREE.Vector3(-0.5, -1.5, 5),
+      cleveland: new THREE.Vector3(-0.5, -1.5, 5),
+      developer: new THREE.Vector3(-0.5, 1.5, 5),
     }
   : {
       hello: new THREE.Vector3(-1.25, 2, 5),
       imJohn: new THREE.Vector3(0.5, 2, 5),
       callMeJack: new THREE.Vector3(-0.5, -1.5, 5),
+      cleveland: new THREE.Vector3(-0.5, -1.5, 5),
+      developer: new THREE.Vector3(-0.5, 1.5, 5),
     };
 
 interface TextPositions {
   hello: THREE.Vector3;
   imJohn: THREE.Vector3;
   callMeJack: THREE.Vector3;
+  cleveland: THREE.Vector3;
+  developer: THREE.Vector3;
 }
 interface Background {
   background: string;
