@@ -22,7 +22,6 @@ export default function ThreeCanvas() {
       camera={{
         position: [0, 0, 0],
         fov: 100,
-        type: "perspective",
         near: 0.1,
         far: 1000,
       }}

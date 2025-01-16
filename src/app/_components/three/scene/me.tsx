@@ -7,6 +7,7 @@ import * as THREE from "three";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { useGraph, useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations, useScroll } from "@react-three/drei";
+import { easing } from "maath";
 import { GLTF, SkeletonUtils } from "three-stdlib";
 
 type ActionName =
@@ -107,7 +108,7 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
     };
   }, [action, actions, names]);
 
-  useFrame(() => {
+  useFrame((state, delta) => {
     const scrolled = scroll.offset * 100;
     if (!me.current) return;
     //probably need to modify this for mobile vs desktop
@@ -123,8 +124,13 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
       setAction(animationActions.chill);
     } else if (scrolled > 40 && scrolled < 50) {
       setAction(animationActions.backflip);
-    } else if (scrolled > 50) {
+    } else if (scrolled > 50 && scrolled < 70) {
       setAction(animationActions.chill);
+    } else if (scrolled > 70) {
+      //TODO fix for mobile
+      easing.damp3(me.current.position, [-9, -4, 2], 1, delta);
+      me.current.lookAt(state.camera.position);
+      console.log(me.current.position);
     }
   });
 
