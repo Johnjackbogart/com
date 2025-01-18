@@ -140,7 +140,14 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
 
   if (!actions) return;
   return (
-    <group position={[0, -1, -10]} ref={me} {...props} dispose={null}>
+    <group
+      position={[0, -1, -10]}
+      ref={me}
+      {...props}
+      dispose={null}
+      onPointerEnter={() => setAction(animationActions.yup)}
+      onPointerLeave={() => setAction(animationActions.chill)}
+    >
       <group name="Scene">
         <group name="Armature">
           <primitive object={nodes.Hips} />
