@@ -126,11 +126,15 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
       setAction(animationActions.backflip);
     } else if (scrolled > 50 && scrolled < 70) {
       setAction(animationActions.chill);
-    } else if (scrolled > 70) {
+      me.current.position.set(0, -1, 5.5);
+      me.current.lookAt(new THREE.Vector3(0, 0, 10));
+    } else if (scrolled > 70 && scrolled < 80) {
       //TODO fix for mobile
-      easing.damp3(me.current.position, [-9, -4, 2], 1, delta);
+      //me.current.position.set(-9, 3, 2);
+      me.current.position.setX(Math.abs(70 - scrolled));
+      me.current.position.setY(-((scrolled - 70) / 2 - 1));
+      me.current.position.setZ((3 * (scrolled - 70)) / 10);
       me.current.lookAt(state.camera.position);
-      console.log(me.current.position);
     }
   });
 
