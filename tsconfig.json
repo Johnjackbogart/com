@@ -31,7 +31,8 @@
       "~/*": ["./src/app/*"],
       "&/*": ["./src/app/_components/*"],
       "#/*": ["./src/app/_components/ui/*"],
-      "^/*": ["./src/app/_components/logos/*"]
+      "^/*": ["./src/app/_components/logos/*"],
+      "+/*": ["./src/server/api/*"]
     }
 
   },

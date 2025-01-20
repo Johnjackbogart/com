@@ -7,6 +7,7 @@ import * as THREE from "three";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { useGraph, useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations, useScroll } from "@react-three/drei";
+import { easing } from "maath";
 import { GLTF, SkeletonUtils } from "three-stdlib";
 
 type ActionName =
@@ -107,29 +108,46 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
     };
   }, [action, actions, names]);
 
-  useFrame(() => {
+  useFrame((state, delta) => {
     const scrolled = scroll.offset * 100;
     if (!me.current) return;
     //probably need to modify this for mobile vs desktop
     if (scrolled < 10) {
       setAction(animationActions.chill);
     } else if (scrolled > 10 && scrolled < 20) {
-      me.current.position.setZ((scrolled - 10) / 2);
+      //moves me to 5.5
+      me.current.position.setZ(((scrolled - 10) * 11) / 20);
       setAction(animationActions.gorilla);
     } else if (scrolled > 20 && scrolled < 25) {
-      me.current.position.setZ(5);
+      me.current.position.setZ(5.5);
     } else if (scrolled > 25 && scrolled < 40) {
       setAction(animationActions.chill);
     } else if (scrolled > 40 && scrolled < 50) {
       setAction(animationActions.backflip);
-    } else if (scrolled > 50) {
+    } else if (scrolled > 50 && scrolled < 70) {
       setAction(animationActions.chill);
+      me.current.position.set(0, -1, 5.5);
+      me.current.lookAt(new THREE.Vector3(0, 0, 10));
+    } else if (scrolled > 70 && scrolled < 80) {
+      //TODO fix for mobile
+      //me.current.position.set(-9, 3, 2);
+      me.current.position.setX(Math.abs(70 - scrolled));
+      me.current.position.setY(-((scrolled - 70) / 2.5 + 1));
+      me.current.position.setZ((3 * (70 - scrolled)) / 10 + 5.5);
+      me.current.lookAt(state.camera.position);
     }
   });
 
   if (!actions) return;
   return (
-    <group position={[0, -1, -10]} ref={me} {...props} dispose={null}>
+    <group
+      position={[0, -1, -10]}
+      ref={me}
+      {...props}
+      dispose={null}
+      onPointerEnter={() => setAction(animationActions.yup)}
+      onPointerLeave={() => setAction(animationActions.chill)}
+    >
       <group name="Scene">
         <group name="Armature">
           <primitive object={nodes.Hips} />

@@ -11,10 +11,12 @@ import {
 } from "#/dropdown-menu";
 import JackBogart from "^/JackBogart";
 import Github from "^/GitHub";
+import { useThemeToFill } from "&/theme";
 import pkg from "!/package.json";
 
 export const Nav = () => {
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
+  const theming = useThemeToFill();
   return (
     <div
       className={
@@ -22,7 +24,7 @@ export const Nav = () => {
       }
     >
       <div className={"mt-auto"}>
-        <JackBogart theme={resolvedTheme} />
+        <JackBogart theme={theming?.theme} />
       </div>
       <div className={"ml-auto flex items-center gap-1"}>
         <Button
