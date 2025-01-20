@@ -132,8 +132,8 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
       //TODO fix for mobile
       //me.current.position.set(-9, 3, 2);
       me.current.position.setX(Math.abs(70 - scrolled));
-      me.current.position.setY(-((scrolled - 70) / 2 - 1));
-      me.current.position.setZ((3 * (scrolled - 70)) / 10);
+      me.current.position.setY(-((scrolled - 70) / 2.5 + 1));
+      me.current.position.setZ((3 * (70 - scrolled)) / 10 + 5.5);
       me.current.lookAt(state.camera.position);
     }
   });

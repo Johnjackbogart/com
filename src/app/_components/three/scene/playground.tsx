@@ -13,6 +13,7 @@ import { isMobile } from "react-device-detect";
 import { useThemeToFill } from "&/theme";
 import Text from "./text/text";
 import Me from "./me";
+import Mic from "./mic";
 
 function Scene() {
   const theming = useThemeToFill();
@@ -28,6 +29,7 @@ function Scene() {
     const scrolled = scroll.offset * 100;
     let cameraYOffset = state.pointer.y * 0.05 + scrolled * 10 - 100;
     const cameraZOffset = 5 + Math.cos(state.pointer.x) * 2;
+    const scrollMultiplier = scrolled > 70 ? 0.01 : 1;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
     tk.current.rotation.x = Math.PI / 2;
 
@@ -46,7 +48,7 @@ function Scene() {
     easing.damp3(
       state.camera.position,
       [
-        mobileMultiplier * Math.sin(-state.pointer.x) * 2.5,
+        scrollMultiplier * mobileMultiplier * Math.sin(-state.pointer.x) * 2.5,
         cameraYOffset,
         cameraZOffset,
       ],
@@ -63,6 +65,7 @@ function Scene() {
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />
       <Me />
+      <Mic />
       <mesh ref={tk}>
         <torusKnotGeometry args={[7, 0.5, 1000, 100, p, q]} />
         <MeshTransmissionMaterial
@@ -82,10 +85,6 @@ export default function Playground() {
     //scroll controls breaks canvas when pages not equal to 1
     //if screen is resized, or canvas is moved, camera produces weird activity
     //setting distance to 10 produces the same behavior that I'm initially looking for
-    <ScrollControls pages={1} damping={0.01} distance={10}>
-      <DreiScroll>
-        <Scene />
-      </DreiScroll>
-    </ScrollControls>
+    <Scene />
   );
 }

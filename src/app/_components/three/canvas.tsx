@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
+import { ScrollControls, Scroll as DreiScroll } from "@react-three/drei";
 import { useThemeToFill } from "&/theme";
 import Effects from "./scene/effects";
 import Env from "./scene/env";
@@ -27,9 +28,13 @@ export default function ThreeCanvas() {
       }}
     >
       <Suspense fallback={<Loading />}>
-        <Env theming={theming} />
-        <Effects />
-        <PlayGround />
+        <ScrollControls pages={1} damping={0.01} distance={10}>
+          <DreiScroll>
+            <Env theming={theming} />
+            <Effects />
+            <PlayGround />
+          </DreiScroll>
+        </ScrollControls>
       </Suspense>
     </Canvas>
   );

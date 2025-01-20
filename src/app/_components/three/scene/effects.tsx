@@ -12,22 +12,26 @@ import { ChromaticAberrationEffect, BlendFunction } from "postprocessing";
 import { easing } from "maath";
 import { isMobile } from "react-device-detect";
 import { useThemeToFill } from "&/theme";
+import { useScroll } from "@react-three/drei";
 
 export default function Effects() {
+  const scroll = useScroll();
   const theming = useThemeToFill();
   const mobileMultiplier = isMobile ? 0.1 : 1;
   let chromaEffect: ChromaticAberrationEffect | null = null;
   const offset = useRef(new THREE.Vector2(0.05, 0.05));
 
   useFrame((state, delta) => {
+    const scrolled = scroll.offset * 100;
+    const scrollMultiplier = scrolled > 70 ? 0.001 : 1;
     //can I just import this as a prop ?????
     //stolen from https://discourse.threejs.org/t/how-to-create-glass-material-that-refracts-elements-in-dom/53625/3
     easing.damp3(
       state.camera.position,
       [
-        mobileMultiplier * Math.sin(-state.pointer.x) * 2.5,
-        mobileMultiplier * state.pointer.y * 5,
-        mobileMultiplier * 5 + Math.cos(state.pointer.x) * 2,
+        scrollMultiplier * mobileMultiplier * Math.sin(-state.pointer.x) * 2.5,
+        scrollMultiplier * mobileMultiplier * state.pointer.y * 5,
+        scrollMultiplier * mobileMultiplier * 5 + Math.cos(state.pointer.x) * 2,
       ],
       1,
       delta,
