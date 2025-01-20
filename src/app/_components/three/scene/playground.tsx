@@ -27,9 +27,9 @@ function Scene() {
   useFrame((state, delta) => {
     if (!tk.current) return;
     const scrolled = scroll.offset * 100;
+    const scrollMultiplier = scrolled > 70 ? 0.0001 : 1;
     let cameraYOffset = state.pointer.y * 0.05 + scrolled * 10 - 100;
-    const cameraZOffset = 5 + Math.cos(state.pointer.x) * 2;
-    const scrollMultiplier = scrolled > 70 ? 0.01 : 1;
+    const cameraZOffset = scrolled > 70 ? 7 : 5 + Math.cos(state.pointer.x) * 2;
     tk.current.rotation.z = 1 * state.clock.getElapsedTime();
     tk.current.rotation.x = Math.PI / 2;
 
@@ -49,7 +49,7 @@ function Scene() {
       state.camera.position,
       [
         scrollMultiplier * mobileMultiplier * Math.sin(-state.pointer.x) * 2.5,
-        cameraYOffset,
+        scrollMultiplier * cameraYOffset,
         cameraZOffset,
       ],
       0.01,
