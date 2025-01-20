@@ -9,13 +9,13 @@ interface clevelandProps {
 export default function Cleveland({ theming }: clevelandProps) {
   const scroll = useScroll();
   const sr = useRef<THREE.Object3D>(new THREE.Object3D());
-  if (!theming) return;
   useFrame((state, delta) => {
     const scrolled = scroll.offset * 100;
     if (scrolled > 70) {
       sr.current.position.setZ(scrolled - 65);
     }
   });
+  if (!theming) return;
   return (
     <Svg
       //src={`${theming.isMobile ? "callmejackmobile.svg" : "callmejack.svg"}`}
