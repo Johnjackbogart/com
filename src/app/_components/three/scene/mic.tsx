@@ -20,7 +20,13 @@ type GLTFResult = GLTF & {
 export default function Mic(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/mic.glb") as GLTFResult;
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      dispose={null}
+      position={[-2, -1, 6]}
+      scale={0.1}
+      rotation={new THREE.Euler(0, Math.PI / 2)}
+    >
       <mesh geometry={nodes.mesh_0.geometry} material={nodes.mesh_0.material} />
     </group>
   );
