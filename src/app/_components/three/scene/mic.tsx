@@ -23,7 +23,7 @@ export default function Mic(props: JSX.IntrinsicElements["group"]) {
     <group
       {...props}
       dispose={null}
-      position={[-2, -1, 6]}
+      position={[-2.2, -0.9, 6]}
       scale={0.1}
       rotation={new THREE.Euler(0, Math.PI / 2)}
     >
