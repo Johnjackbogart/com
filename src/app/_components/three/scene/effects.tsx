@@ -46,7 +46,7 @@ export default function Effects() {
   });
   return (
     <EffectComposer enableNormalPass={true}>
-      <ChromaticAberration
+      {/*<ChromaticAberration
         ref={(ref) => {
           if (ref && typeof ref === "object" && "offset" in ref) {
             chromaEffect = ref as ChromaticAberrationEffect;
@@ -56,7 +56,7 @@ export default function Effects() {
         offset={new THREE.Vector2(0.01, 0.01)}
         radialModulation={false}
         modulationOffset={1.0}
-      />
+      />*/}
       <Bloom
         mipmapBlur
         luminanceThreshold={0.8}

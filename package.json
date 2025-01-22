@@ -22,6 +22,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.6",
+    "@react-three/flex": "^1.0.1",
     "@react-three/postprocessing": "^2.16.3",
     "@react-three/rapier": "^1.4.0",
     "@t3-oss/env-nextjs": "^0.10.1",

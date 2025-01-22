@@ -13,13 +13,11 @@ import { isMobile } from "react-device-detect";
 import { useThemeToFill } from "&/theme";
 import Text from "./text/text";
 import Me from "./me";
-import Mic from "./mic";
 
 function Scene() {
   const theming = useThemeToFill();
   const tk = useRef<THREE.Mesh>(null);
   const scroll = useScroll();
-  const [mic, setMic] = useState(false);
   const mobileMultiplier = isMobile ? 0.1 : 1;
 
   const p = 31;
@@ -40,15 +38,10 @@ function Scene() {
       tk.current.rotation.x = ((scrolled - 30) * Math.PI) / 40 + Math.PI / 2;
       tk.current.position.z = scrolled / 5 - 6;
       cameraYOffset = 0;
-    } else if (scrolled > 50 && scrolled < 70) {
-      setMic(false);
+    } else if (scrolled > 50) {
       tk.current.rotation.x = Math.PI;
       tk.current.position.z = scrolled / 5 - 6;
       cameraYOffset = 0;
-    } else if (scrolled > 70) {
-      tk.current.rotation.x = Math.PI;
-      tk.current.position.z = scrolled / 5 - 6;
-      setMic(true);
     }
 
     easing.damp3(
@@ -71,7 +64,6 @@ function Scene() {
       <ambientLight color="white" intensity={1} />
       <pointLight position={[0, 0, 3]} />
       <Me />
-      {mic && <Mic />}
       <mesh ref={tk}>
         <torusKnotGeometry args={[7, 0.5, 1000, 100, p, q]} />
         <MeshTransmissionMaterial
