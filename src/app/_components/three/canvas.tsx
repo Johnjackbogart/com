@@ -1,5 +1,5 @@
 "use client";
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls, Scroll as DreiScroll } from "@react-three/drei";
@@ -9,10 +9,9 @@ import Env from "./scene/env";
 import Loading from "./Loading";
 import PlayGround from "&/three/scene/playground";
 
-//const Env = lazy(() => import("./scene/env"));
-
 export default function ThreeCanvas() {
   const theming = useThemeToFill();
+
   return (
     <Canvas
       gl={{ alpha: true }}
@@ -28,7 +27,7 @@ export default function ThreeCanvas() {
       }}
     >
       <Suspense fallback={<Loading />}>
-        <ScrollControls pages={1} damping={0.01} distance={10}>
+        <ScrollControls pages={1} damping={0.5} distance={10}>
           <DreiScroll>
             <Env theming={theming} />
             <Effects />
