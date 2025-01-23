@@ -128,8 +128,9 @@ export default function Me(props: JSX.IntrinsicElements["group"]) {
       setAction(animationActions.chill);
       me.current.position.set(0, -1, 5.5);
     } else if (scrolled > 70) {
-      setAction(animationActions.aerial);
-      me.current.position.setZ(scrolled - 64.5);
+      setAction(animationActions.cautious);
+      me.current.position.setX(0.25 * (scrolled - 70));
+      me.current.lookAt(new THREE.Vector3(100, 0, 0));
     }
   });
 
