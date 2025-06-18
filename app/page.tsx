@@ -7,9 +7,9 @@ import { InteractiveParticleCloud } from "@/components/interactive-particle-clou
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full">
       {/* Navigation */}
-      <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-sm">
+      <header className="sticky top-0 z-20  backdrop-blur-sm w-full">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between border-b border-border">
             <div className="flex items-center">
