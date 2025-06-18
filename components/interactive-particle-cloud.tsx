@@ -11,7 +11,7 @@ const PARTICLE_SIZE = 0.02
 // Particle Physics
 const MAX_VELOCITY = 0.15
 const CENTER_POINT = new THREE.Vector3(0, 0, 0)
-const WEAK_ATTRACTION = 0.0005 // <--- TRY INCREASING THIS (e.g., to 0.001 or 0.002)
+const WEAK_ATTRACTION = 0.005 // <--- TRY INCREASING THIS (e.g., to 0.001 or 0.002)
 const DAMPING_FACTOR = 0.96
 
 // Mouse Repulsion controlled by Y-axis
