@@ -22,7 +22,7 @@ const MAX_REPULSION_FORCE = 0.25
 const NOISE_STRENGTH = 0.0001
 
 // Center Reset Logic
-const CENTER_RESET_THRESHOLD = 0.1 // <--- TRY INCREASING THIS (e.g., to 0.2 or 0.3)
+const CENTER_RESET_THRESHOLD = 1 // <--- TRY INCREASING THIS (e.g., to 0.2 or 0.3)
 
 function Particles() {
   const { viewport } = useThree()
