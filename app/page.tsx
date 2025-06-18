@@ -91,7 +91,7 @@ export default function HomePage() {
       <footer className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-border">
         <div className="flex justify-between items-center">
           <p className="text-xs uppercase tracking-wider text-muted-foreground">
-            © 2024 John Jack Bogart
+            © 2025 John Jack Bogart
           </p>
           <div className="flex items-center space-x-4">
             <Link
