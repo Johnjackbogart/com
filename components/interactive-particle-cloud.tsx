@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useIsMobile } from "lib/utils";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 // --- Constants for Particle Behavior ---
 const PARTICLE_COUNT = 35000; // Increased for a denser cloud
@@ -47,7 +47,7 @@ function Particles({ particleCount }: ParticlesProps) {
   // Initial positions are still used for the first render
   const initialParticlePositions = useMemo(() => {
     const p = new Float32Array(particleCount * 3);
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
+    for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
       p[i3] = THREE.MathUtils.randFloatSpread(particleSpread.x * 0.7);
       p[i3 + 1] = THREE.MathUtils.randFloatSpread(particleSpread.y * 0.7);
@@ -61,7 +61,7 @@ function Particles({ particleCount }: ParticlesProps) {
   }, []);
 
   useEffect(() => {
-    velocitiesRef.current = new Float32Array(particleCount * 3).fill(0);
+    velocitiesRef.current = new Float32Array(particleCount * 3);
   }, [particleCount]);
 
   useFrame((state) => {
@@ -171,7 +171,7 @@ function Particles({ particleCount }: ParticlesProps) {
       <bufferGeometry attach="geometry">
         <bufferAttribute
           attach="attributes-position"
-          count={PARTICLE_COUNT}
+          count={particleCount}
           array={initialParticlePositions}
           itemSize={3}
         />
