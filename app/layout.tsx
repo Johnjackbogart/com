@@ -1,22 +1,24 @@
 import type React from "react";
 import type { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ShaderBackground } from "@/components/shader-background";
+import { ParticleCloudBackground } from "@/components/particle-background";
+import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "John Bogart",
-  description: "Portfolio of John Jack Bogart, a creative developer.",
+  description: "My personal portfolio",
   icons: [
     {
       media: "(prefers-color-scheme: light)",
-      url: "/images/favicon-light.ico",
-      href: "/images/favicon-light.ico",
+      url: "/logo_light.ico",
+      href: "/logo_light.ico",
     },
     {
       media: "(prefers-color-scheme: dark)",
-      url: "/images/favicon-dark.ico",
-      href: "/images/favicon-dark.ico",
+      url: "/logo_dark.ico",
+      href: "/logo_dark.ico",
     },
   ],
 };
@@ -40,14 +42,14 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-mono">
+      <body className="font-mono w-full h-full ">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <ShaderBackground /> {/* This is the global, fixed background */}
+          <ParticleCloudBackground className="fixed inset-0 h-full w-full -z-10 pointer-events-none" />
           <div className="relative z-0">
             {/* Main content wrapper */}
             {children}

@@ -5,6 +5,8 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "dev:ts": "concurrently -n NEXT,TS -c magenta,cyan \"npm run dev\" \"npm run ts\"",
+    "ts": "tsc --noEmit --incremental --preserveWatchOutput --pretty --watch",
     "lint": "next lint",
     "start": "next start"
   },
@@ -78,3 +80,4 @@
     "typescript": "^5"
   }
 }
+

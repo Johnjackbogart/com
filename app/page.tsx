@@ -14,7 +14,22 @@ export default function HomePage() {
           <div className="flex h-16 items-center justify-between border-b border-border">
             <div className="flex items-center">
               <Link href="/" className="flex items-center gap-2">
-                <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+                <Image
+                  src="/logo_light.svg"
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                  className="block dark:hidden"
+                />
+
+                {/* Logo that’s white on dark bg */}
+                <Image
+                  src="/logo_dark.svg"
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                  className="hidden dark:block"
+                />
                 <span className="font-bold text-lg hidden sm:inline text-foreground">
                   John Bogart
                 </span>
@@ -40,12 +55,14 @@ export default function HomePage() {
                 Contact
               </Link>
             </nav>
-            <Button
-              variant="outline"
-              className="rounded-none border-2 border-foreground hover:bg-foreground hover:text-background"
-            >
-              AVAILABLE
-            </Button>
+            <Link href="https://twitter.com/JohnJackBogart">
+              <Button
+                variant="outline"
+                className="rounded-none border-2 border-foreground hover:bg-foreground hover:text-background"
+              >
+                Connect on Twitter
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -54,16 +71,17 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative text-center py-16 md:py-24 border-b border-border h-[60vh] md:h-[70vh] flex flex-col justify-center items-center">
           {/* The canvas is positioned to fill the section but has no negative z-index */}
-          <InteractiveParticleCloud className="absolute inset-0 w-full h-full" />
           {/* This text container sits on top, but passes mouse events through */}
-          <div className="relative z-10 pointer-events-none">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tighter text-muted-foreground">
-              Creative Developer
-            </h1>
-            <p className="mt-4 max-w-3xl mx-auto text-base md:text-lg text-muted-foreground">
-              I build raw, effective, and experimental digital experiences. My
-              work sits at the intersection of code, design, and art.
-            </p>
+          <div className="pointer-events-none h-full">
+            <div className="flex flex-col relative justify-between z-10 h-full">
+              <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-foreground/70">
+                Founder | Creative | Athlete
+              </h1>
+              <p className="mt-4 max-w-3xl mx-auto text-base md:text-lg text-muted-foreground">
+                Hi :) I'm John! I'm interested in making the world a better
+                place, helping people, and having fun doing it
+              </p>
+            </div>
           </div>
         </section>
 
@@ -83,7 +101,7 @@ export default function HomePage() {
               Resume
             </Link>
             <Link
-              href="https://github.com"
+              href="https://github.com/johnjackbogart"
               className="text-muted-foreground hover:text-foreground"
             >
               <Github className="w-5 h-5" />
