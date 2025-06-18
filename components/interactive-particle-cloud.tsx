@@ -5,7 +5,7 @@ import { useRef, useMemo } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 
 // --- Constants for Particle Behavior ---
-const PARTICLE_COUNT = 3500
+const PARTICLE_COUNT = 35000
 const PARTICLE_SIZE = 0.02
 
 // Particle Physics
