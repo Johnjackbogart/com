@@ -9,17 +9,20 @@ const PARTICLE_COUNT = 3500
 const PARTICLE_SIZE = 0.02
 
 // Particle Physics
-const MAX_VELOCITY = 0.15 // Increased to allow for stronger repulsion
+const MAX_VELOCITY = 0.15
 const CENTER_POINT = new THREE.Vector3(0, 0, 0)
-const WEAK_ATTRACTION = 0.0001 // A very faint pull to the center to keep the cloud cohesive
-const DAMPING_FACTOR = 0.96 // A constant damping factor
+const WEAK_ATTRACTION = 0.0001
+const DAMPING_FACTOR = 0.96
 
 // Mouse Repulsion controlled by Y-axis
-const MOUSE_RADIUS = 1.0 // The area of effect around the mouse
-const MIN_REPULSION_FORCE = 0.0 // No force at the bottom of the screen
-const MAX_REPULSION_FORCE = 0.25 // Strongest force at the top of the screen
+const MOUSE_RADIUS = 1.0
+const MIN_REPULSION_FORCE = 0.0
+const MAX_REPULSION_FORCE = 0.25
 
 const NOISE_STRENGTH = 0.0001
+
+// Center Reset Logic
+const CENTER_RESET_THRESHOLD = 0.1 // If particle is this close to center, reset it
 
 function Particles() {
   const { viewport } = useThree()
@@ -36,6 +39,7 @@ function Particles() {
     }
   }, [viewport.width, viewport.height])
 
+  // Store initial positions for resetting
   const initialParticlePositions = useMemo(() => {
     const p = new Float32Array(PARTICLE_COUNT * 3)
     for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -60,53 +64,46 @@ function Particles() {
     const mouseWorldX = framePointer.x * (viewport.width / 2)
     const mouseWorldY = framePointer.y * (viewport.height / 2)
 
-    // Normalize mouse.y from [-1, 1] to [0, 1] for repulsion strength
     const normalizedMouseY = (framePointer.y + 1) / 2
     const currentRepulsionForce = MIN_REPULSION_FORCE + normalizedMouseY * (MAX_REPULSION_FORCE - MIN_REPULSION_FORCE)
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const i3 = i * 3
-      const px = positions[i3]
-      const py = positions[i3 + 1]
-      const pz = positions[i3 + 2]
+      let px = positions[i3]
+      let py = positions[i3 + 1]
+      let pz = positions[i3 + 2]
 
       let accX = 0,
         accY = 0,
         accZ = 0
 
-      // 1. Faint attraction to the center to prevent drifting away
       accX += (CENTER_POINT.x - px) * WEAK_ATTRACTION
       accY += (CENTER_POINT.y - py) * WEAK_ATTRACTION
       accZ += (CENTER_POINT.z - pz) * WEAK_ATTRACTION
 
-      // 2. Mouse Repulsion Force (strength controlled by Y-axis)
-      const dx = px - mouseWorldX
-      const dy = py - mouseWorldY
-      const distance = Math.sqrt(dx * dx + dy * dy)
+      const dxMouse = px - mouseWorldX
+      const dyMouse = py - mouseWorldY
+      const distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse)
 
-      if (distance < MOUSE_RADIUS && currentRepulsionForce > 0) {
-        const forceFactor = (MOUSE_RADIUS - distance) / MOUSE_RADIUS
-        const angle = Math.atan2(dy, dx)
+      if (distanceMouse < MOUSE_RADIUS && currentRepulsionForce > 0) {
+        const forceFactor = (MOUSE_RADIUS - distanceMouse) / MOUSE_RADIUS
+        const angle = Math.atan2(dyMouse, dxMouse)
         accX += Math.cos(angle) * forceFactor * currentRepulsionForce
         accY += Math.sin(angle) * forceFactor * currentRepulsionForce
       }
 
-      // 3. A tiny bit of random noise
       accX += (Math.random() - 0.5) * NOISE_STRENGTH
       accY += (Math.random() - 0.5) * NOISE_STRENGTH
       accZ += (Math.random() - 0.5) * NOISE_STRENGTH
 
-      // Update velocities
       velocities[i3] += accX
       velocities[i3 + 1] += accY
       velocities[i3 + 2] += accZ
 
-      // Apply Damping
       velocities[i3] *= DAMPING_FACTOR
       velocities[i3 + 1] *= DAMPING_FACTOR
       velocities[i3 + 2] *= DAMPING_FACTOR
 
-      // Cap velocity
       const speedSq = velocities[i3] ** 2 + velocities[i3 + 1] ** 2 + velocities[i3 + 2] ** 2
       if (speedSq > MAX_VELOCITY ** 2 && speedSq > 0) {
         const factor = MAX_VELOCITY / Math.sqrt(speedSq)
@@ -115,27 +112,42 @@ function Particles() {
         velocities[i3 + 2] *= factor
       }
 
-      // Update positions
       positions[i3] += velocities[i3]
       positions[i3 + 1] += velocities[i3 + 1]
       positions[i3 + 2] += velocities[i3 + 2]
 
-      // Boundary Reset
-      const halfSpreadX = particleSpread.x / 2
-      const halfSpreadY = particleSpread.y / 2
-      const halfSpreadZ = particleSpread.z / 2
+      // Update local px, py, pz for distance check after position update
+      px = positions[i3]
+      py = positions[i3 + 1]
+      pz = positions[i3 + 2]
 
-      if (
-        Math.abs(positions[i3]) > halfSpreadX ||
-        Math.abs(positions[i3 + 1]) > halfSpreadY ||
-        Math.abs(positions[i3 + 2]) > halfSpreadZ
-      ) {
-        positions[i3] = THREE.MathUtils.randFloatSpread(particleSpread.x * 0.1)
-        positions[i3 + 1] = THREE.MathUtils.randFloatSpread(particleSpread.y * 0.1)
-        positions[i3 + 2] = THREE.MathUtils.randFloatSpread(particleSpread.z * 0.1)
+      // Center Reset Logic
+      const distToCenterSq = px * px + py * py + pz * pz // Using squared distance for efficiency
+      if (distToCenterSq < CENTER_RESET_THRESHOLD * CENTER_RESET_THRESHOLD) {
+        positions[i3] = initialParticlePositions[i3]
+        positions[i3 + 1] = initialParticlePositions[i3 + 1]
+        positions[i3 + 2] = initialParticlePositions[i3 + 2]
         velocities[i3] = 0
         velocities[i3 + 1] = 0
         velocities[i3 + 2] = 0
+      } else {
+        // Boundary Reset (if not reset by center)
+        const halfSpreadX = particleSpread.x / 2
+        const halfSpreadY = particleSpread.y / 2
+        const halfSpreadZ = particleSpread.z / 2
+
+        if (
+          Math.abs(positions[i3]) > halfSpreadX ||
+          Math.abs(positions[i3 + 1]) > halfSpreadY ||
+          Math.abs(positions[i3 + 2]) > halfSpreadZ
+        ) {
+          positions[i3] = THREE.MathUtils.randFloatSpread(particleSpread.x * 0.1)
+          positions[i3 + 1] = THREE.MathUtils.randFloatSpread(particleSpread.y * 0.1)
+          positions[i3 + 2] = THREE.MathUtils.randFloatSpread(particleSpread.z * 0.1)
+          velocities[i3] = 0
+          velocities[i3 + 1] = 0
+          velocities[i3 + 2] = 0
+        }
       }
     }
     if (pointsRef.current.geometry.attributes.position) {
@@ -149,7 +161,7 @@ function Particles() {
         <bufferAttribute
           attach="attributes-position"
           count={PARTICLE_COUNT}
-          array={initialParticlePositions}
+          array={initialParticlePositions} // Use initial positions for the buffer attribute
           itemSize={3}
         />
       </bufferGeometry>
