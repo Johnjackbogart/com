@@ -2,7 +2,6 @@ import type React from "react";
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ShaderBackground } from "@/components/shader-background";
 import { ParticleCloudBackground } from "@/components/particle-background";
 import dynamic from "next/dynamic";
 
@@ -21,6 +20,24 @@ export const metadata: Metadata = {
       href: "/logo_dark.ico",
     },
   ],
+  openGraph: {
+    url: "https://johnjackbogart.com",
+    type: "website",
+    title: "John Bogart",
+    description: "My personal website",
+    images: [
+      {
+        url: "https://johnjackbogart.com/og.png",
+        width: 1200,
+        height: 630,
+        alt: "John Bogart – Founder",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://johnjackbogart.com/og.png"],
+  },
 };
 
 export default function RootLayout({
