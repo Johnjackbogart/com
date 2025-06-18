@@ -11,7 +11,7 @@ const PARTICLE_SIZE = 0.02
 // Particle Physics
 const MAX_VELOCITY = 0.15
 const CENTER_POINT = new THREE.Vector3(0, 0, 0)
-const WEAK_ATTRACTION = 0.0001
+const WEAK_ATTRACTION = 0.0005 // <--- TRY INCREASING THIS (e.g., to 0.001 or 0.002)
 const DAMPING_FACTOR = 0.96
 
 // Mouse Repulsion controlled by Y-axis
@@ -22,7 +22,7 @@ const MAX_REPULSION_FORCE = 0.25
 const NOISE_STRENGTH = 0.0001
 
 // Center Reset Logic
-const CENTER_RESET_THRESHOLD = 0.1 // If particle is this close to center, reset it
+const CENTER_RESET_THRESHOLD = 0.1 // <--- TRY INCREASING THIS (e.g., to 0.2 or 0.3)
 
 function Particles() {
   const { viewport } = useThree()
@@ -124,10 +124,10 @@ function Particles() {
       // Center Reset Logic
       const distToCenterSq = px * px + py * py + pz * pz // Using squared distance for efficiency
       if (distToCenterSq < CENTER_RESET_THRESHOLD * CENTER_RESET_THRESHOLD) {
-        positions[i3] = initialParticlePositions[i3]
-        positions[i3 + 1] = initialParticlePositions[i3 + 1]
-        positions[i3 + 2] = initialParticlePositions[i3 + 2]
-        velocities[i3] = 0
+        positions[i3] = initialParticlePositions[i3] // <--- THIS RESETS TO ORIGINAL X
+        positions[i3 + 1] = initialParticlePositions[i3 + 1] // <--- THIS RESETS TO ORIGINAL Y
+        positions[i3 + 2] = initialParticlePositions[i3 + 2] // <--- THIS RESETS TO ORIGINAL Z
+        velocities[i3] = 0 // <--- THIS ZEROS VELOCITY
         velocities[i3 + 1] = 0
         velocities[i3 + 2] = 0
       } else {
