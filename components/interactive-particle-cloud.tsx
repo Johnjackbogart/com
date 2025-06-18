@@ -3,6 +3,7 @@
 import * as THREE from "three";
 import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 // --- Constants for Particle Behavior ---
 const PARTICLE_COUNT = 35000; // Increased for a denser cloud
@@ -24,11 +25,13 @@ const NOISE_STRENGTH = 0.0001;
 // Center Reset Logic
 const CENTER_RESET_THRESHOLD = 0.25; // Larger threshold for more frequent resets
 
-function Particles() {
+type ParticlesProps = { particleCount: number };
+
+function Particles({ particleCount }: ParticlesProps) {
   const { scene, viewport } = useThree();
   const pointsRef = useRef<THREE.Points>(null!);
   const velocitiesRef = useRef<Float32Array>(
-    new Float32Array(PARTICLE_COUNT * 3).fill(0),
+    new Float32Array(particleCount * 3).fill(0),
   );
 
   const particleSpread = useMemo(() => {
@@ -43,8 +46,8 @@ function Particles() {
 
   // Initial positions are still used for the first render
   const initialParticlePositions = useMemo(() => {
-    const p = new Float32Array(PARTICLE_COUNT * 3);
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const p = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
       p[i3] = THREE.MathUtils.randFloatSpread(particleSpread.x * 0.7);
       p[i3 + 1] = THREE.MathUtils.randFloatSpread(particleSpread.y * 0.7);
@@ -53,13 +56,14 @@ function Particles() {
     return p;
   }, [particleSpread.x, particleSpread.y, particleSpread.z]);
 
-  useMemo(() => {
-    velocitiesRef.current = new Float32Array(PARTICLE_COUNT * 3).fill(0);
-  }, [PARTICLE_COUNT]);
-
   useEffect(() => {
     scene.background = new THREE.Color("#000000");
   }, []);
+
+  useEffect(() => {
+    velocitiesRef.current = new Float32Array(particleCount * 3);
+  }, [particleCount]);
+
   useFrame((state) => {
     if (!pointsRef.current || !pointsRef.current.geometry) return;
     const positions = pointsRef.current.geometry.attributes.position
@@ -167,7 +171,7 @@ function Particles() {
       <bufferGeometry attach="geometry">
         <bufferAttribute
           attach="attributes-position"
-          count={PARTICLE_COUNT}
+          count={particleCount}
           array={initialParticlePositions}
           itemSize={3}
         />
@@ -191,6 +195,8 @@ export function InteractiveParticleCloud({
 }: {
   className?: string;
 }) {
+  const isMobile = useIsMobile();
+  const count = isMobile ? 10000 : 30000;
   return (
     <div className={className}>
       <Canvas
@@ -199,7 +205,7 @@ export function InteractiveParticleCloud({
         camera={{ position: [0, 0, 4.0], fov: 70 }}
       >
         <ambientLight intensity={0.5} />
-        <Particles />
+        <Particles particleCount={count} key={count} />
       </Canvas>
     </div>
   );
