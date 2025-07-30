@@ -52,50 +52,6 @@ export function BentoGrid() {
       initial="hidden"
       animate="visible"
     >
-      {/* Project 1 */}
-      <MotionCard
-        variants={itemVariants}
-        whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-card col-span-1 md:col-span-2 lg:col-span-2"
-      >
-        <CardHeader className="border-b border-border p-4">
-          <div className="flex justify-between items-center">
-            <h3 className="font-bold text-lg text-card-foreground">
-              Project: r.technology
-            </h3>
-            <Badge
-              variant="outline"
-              className="rounded-none border-border text-muted-foreground"
-            >
-              WEB
-            </Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
-            <Image
-              src="/r_screenshot.png?height=300&width=500"
-              alt="Project 1"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
-            />
-          </div>
-          <p className="text-sm text-muted-foreground">
-            A clean landing page for the incubator I'm working on. Built with
-            R3F, Next and React. Deployed on Vercel
-          </p>
-        </CardContent>
-        <CardFooter className="border-t border-border p-4">
-          <Link
-            href="https://r.technology"
-            className="flex items-center font-bold text-sm uppercase tracking-wider text-card-foreground hover:underline"
-          >
-            View Project <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-        </CardFooter>
-      </MotionCard>
-
       {/* About */}
       <MotionCard
         id="about"
@@ -224,6 +180,50 @@ export function BentoGrid() {
             </Link>
           </div>
         </CardContent>
+      </MotionCard>
+
+      {/* Project 1 */}
+      <MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="rounded-none bg-card col-span-1 md:col-span-2 lg:col-span-2"
+      >
+        <CardHeader className="border-b border-border p-4">
+          <div className="flex justify-between items-center">
+            <h3 className="font-bold text-lg text-card-foreground">
+              Project: r.technology
+            </h3>
+            <Badge
+              variant="outline"
+              className="rounded-none border-border text-muted-foreground"
+            >
+              WEB
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="aspect-video bg-neutral-800 mb-4">
+            <Image
+              src="/r_screenshot.png?height=300&width=500"
+              alt="Project 1"
+              width={500}
+              height={300}
+              className="w-full h-full object-cover opacity-80"
+            />
+          </div>
+          <p className="text-sm text-muted-foreground">
+            A clean landing page for the incubator I'm working on. Built with
+            R3F, Next and React. Deployed on Vercel
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-border p-4">
+          <Link
+            href="https://r.technology"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-card-foreground hover:underline"
+          >
+            View Project <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
       </MotionCard>
 
       {/* Project 2 */}
