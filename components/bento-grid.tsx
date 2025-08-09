@@ -133,7 +133,7 @@ export function BentoGrid() {
         id="contact"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-primary text-primary-foreground col-span-1 md:col-span-1"
+        className="rounded-none bg-primary text-primary-foreground col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-1"
       >
         <CardHeader className="border-b border-primary-foreground/50 p-4">
           <h3 className="font-bold text-lg">Contact</h3>
@@ -230,7 +230,7 @@ export function BentoGrid() {
       <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-card col-span-1 md:col-span-1"
+        className="rounded-none bg-card col-span-1 md:col-span-4"
       >
         <CardHeader className="border-b border-border p-4">
           <h3 className="font-bold text-lg text-card-foreground">
