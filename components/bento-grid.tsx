@@ -65,31 +65,32 @@ export function BentoGrid() {
         <CardContent className="p-4 space-y-4">
           <p className="text-sm text-card-foreground">
             I'm an entrepreneur with a passion for life. I love music, running,
-            and technology. I'm also a transhumanist and socialist with a lot of
-            skepticism about how to turn those ideas into reality
+            and technology. I'm particularly interested in AI and frontier
+            technology. I'm currently working on building an incubator called
+            r.technology, it's been challenging and rewarding!
           </p>
           <p className="text-sm text-card-foreground">
             I've struggled with my health throughout my life, but have recently
-            made a lot of improvements. I'm a bit nervous to talk about that,
-            but everyone says stay vulnerable!
+            made a lot of improvements. I just ran a 100 mile ultramarathon in
+            July and was very inspired by that experience. I'm currently
+            planning my next adventure!
           </p>
           <p className="text-sm text-card-foreground">
             Some of the changes I've made include digging into my passions like
-            running (signed up for a 100M Ultra!), making music (learning how to
-            use ableton and DJ), and getting sober (I used to be a smoker and a
-            pothead). Additionally, I've had to do a ton of internal work to get
+            running, making music (learning how to use ableton), and getting
+            sober. Additionally, I've had to do a ton of internal work to get
             myself to a place of stability. Mostly, this centers around self
-            love and logical thinking, but I also owe a ton of my progress to my
-            supportive family, friends, and partner
+            love, but I also owe a ton of my progress to my supportive friends
+            and family.
           </p>
           <p className="text-sm text-card-foreground">
-            I'm worried that my progress won't stick, and I'll come across as
-            disingenuous. But, I'm feeling very hopeful lately, and am excited
-            to share my journey, the good and the bad
+            I'm worried that my progress won't stick, and imposter syndrome has
+            been quite the beast! But, I'm feeling hopeful lately and am excited
+            to share my journey.
           </p>
           <p className="text-sm text-card-foreground">
             I'm committed to leaving the world better than I found it, and
-            believe that I can use my experiences to help those around me
+            believe that I can use my experiences to help those around me.
           </p>
           <p className="text-sm text-muted-foreground">
             On the development side of things, I mostly stick to the front end.
@@ -99,10 +100,9 @@ export function BentoGrid() {
             long way to go. I hope to share that journey as often as possible
           </p>
           <p className="text-sm text-muted-foreground">
-            My process is iterative and collaborative. I believe the best work
-            comes from a place of curiosity and rigorous experimentation. I'm
-            currently working on r.technology, my tech incubator (more like my
-            baby), and all of the things that come with building that. It's a
+            My process is iterative and collaborative, so please reach out! I
+            believe the best work comes from a place of curiosity and rigorous
+            experimentation. That's what my incubator is all about. It's a
             grassroots bootstrapped organization with a bone to pick. We're
             excited to make some noise and share what we're working on
           </p>
