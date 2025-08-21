@@ -94,12 +94,13 @@ export default function HomePage() {
             © 2025 John Jack Bogart
           </p>
           <div className="flex items-center space-x-4">
-            <Link
-              href="#"
+            <a
+              href="/resume.pdf"
+              download="John_Bogart_Resume.pdf"
               className="text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground"
             >
               Resume
-            </Link>
+            </a>
             <Link
               href="https://github.com/johnjackbogart"
               className="text-muted-foreground hover:text-foreground"
