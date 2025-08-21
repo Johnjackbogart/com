@@ -77,11 +77,10 @@ export function BentoGrid() {
           </p>
           <p className="text-sm text-card-foreground">
             Some of the changes I've made include digging into my passions like
-            running, making music (learning how to use ableton), and getting
-            sober. Additionally, I've had to do a ton of internal work to get
-            myself to a place of stability. Mostly, this centers around self
-            love, but I also owe a ton of my progress to my supportive friends
-            and family.
+            running, music, and technology. Additionally, I've done a ton of
+            internal work to get to where I'm at today. Mostly, this centers
+            around self love, but I also owe a ton of my progress to my
+            supportive friends and family.
           </p>
           <p className="text-sm text-card-foreground">
             I'm worried that my progress won't stick, and imposter syndrome has
@@ -104,7 +103,7 @@ export function BentoGrid() {
             believe the best work comes from a place of curiosity and rigorous
             experimentation. That's what my incubator is all about. It's a
             grassroots bootstrapped organization with a bone to pick. We're
-            excited to make some noise and share what we're working on
+            excited to make some noise and share what we're working on!
           </p>
           <div className="space-y-2 pt-4">
             <h4 className="font-bold text-sm uppercase tracking-wider text-card-foreground">
