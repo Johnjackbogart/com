@@ -6,7 +6,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useIsMobile } from "@/lib/useIsMobile";
 
 // --- Constants for Particle Behavior ---
-const PARTICLE_COUNT = 35000; // Increased for a denser cloud
+const PARTICLE_COUNT = 15000; // Increased for a denser cloud
 const PARTICLE_SIZE = 0.02;
 
 // Particle Physics
@@ -79,7 +79,7 @@ function Particles({ particleCount }: ParticlesProps) {
       MIN_REPULSION_FORCE +
       normalizedMouseY * (MAX_REPULSION_FORCE - MIN_REPULSION_FORCE);
 
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
+    for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
       let px = positions[i3];
       let py = positions[i3 + 1];
@@ -196,7 +196,7 @@ export function InteractiveParticleCloud({
   className?: string;
 }) {
   const isMobile = useIsMobile();
-  const count = isMobile ? 10000 : 30000;
+  const count = isMobile ? 5000 : 15000;
   return (
     <div className={className}>
       <Canvas
