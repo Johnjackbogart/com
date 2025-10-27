@@ -54,7 +54,7 @@ function Particles({ particleCount }: ParticlesProps) {
       p[i3 + 2] = THREE.MathUtils.randFloatSpread(particleSpread.z * 0.7);
     }
     return p;
-  }, [particleSpread.x, particleSpread.y, particleSpread.z]);
+  }, []);
 
   useEffect(() => {
     scene.background = new THREE.Color("#000000");
