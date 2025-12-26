@@ -26,7 +26,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="portfolio">
+        <section>
           <BentoGrid />
         </section>
       </main>

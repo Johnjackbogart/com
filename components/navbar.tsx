@@ -9,12 +9,12 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 const desktopLinks = [
-  { label: "Work", href: "#work" },
+  { label: "Contact", href: "#contact" },
   { label: "About", href: "#about" },
   { label: "Portfolio", href: "#portfolio" },
 ];
 
-const mobileLinks = [{ label: "Connect", href: "#contact" }, ...desktopLinks];
+const mobileLinks = desktopLinks;
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -137,12 +137,15 @@ export function Navbar() {
         {menuOpen && (
           <>
             <div
-              className="fixed inset-0 z-20 bg-background/40 backdrop-blur-sm"
+              className="fixed inset-0 z-20 bg-background/15 backdrop-blur-sm"
               onClick={() => setMenuOpen(false)}
             />
             <div
               id="mobile-menu"
-              className="fixed right-4 top-16 z-30 w-56 rounded border border-border/70 bg-white/90 p-4 shadow-lg shadow-black/40 backdrop-blur dark:border-border dark:bg-black/90"
+              className={cn(
+                "fixed right-4 top-16 z-30 w-56 border border-border/70 p-4 shadow-lg shadow-black/40 backdrop-blur",
+                isDark ? "bg-white/90" : "bg-black/90",
+              )}
             >
               <div className="flex flex-col space-y-3">
                 {mobileLinks.map((item) => (

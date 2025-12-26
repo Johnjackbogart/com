@@ -47,7 +47,7 @@ export function BentoGrid() {
   return (
     <motion.div
       id="work"
-      className="py-16 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-px bg-border border-l border-r border-border"
+      className="scroll-mt-24 py-16 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-px bg-white border-l border-r border-black/10 dark:bg-black dark:border-white/20"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -57,48 +57,50 @@ export function BentoGrid() {
         id="about"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-card col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-2"
+        className="scroll-mt-24 rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-2"
       >
-        <CardHeader className="border-b border-border p-4">
-          <h3 className="font-bold text-lg text-card-foreground">About Me</h3>
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <h3 className="font-bold text-lg text-black dark:text-white">
+            About Me
+          </h3>
         </CardHeader>
         <CardContent className="p-4 space-y-4">
-          <p className="text-sm text-card-foreground">
+          <p className="text-sm text-black dark:text-white">
             I'm an entrepreneur with a passion for life. I love music, running,
             and technology. I'm particularly interested in AI and frontier
             technology. I'm currently working on building an incubator called
             r.technology, it's been challenging and rewarding!
           </p>
-          <p className="text-sm text-card-foreground">
+          <p className="text-sm text-black dark:text-white">
             I've struggled with my health throughout my life, but have recently
             made a lot of improvements. I just ran a 100 mile ultramarathon in
             July and was very inspired by that experience. I'm currently
             planning my next adventure!
           </p>
-          <p className="text-sm text-card-foreground">
+          <p className="text-sm text-black dark:text-white">
             Some of the changes I've made include digging into my passions like
             running, music, and technology. Additionally, I've done a ton of
             internal work to get to where I'm at today. Mostly, this centers
             around self love, but I also owe a ton of my progress to my
             supportive friends and family.
           </p>
-          <p className="text-sm text-card-foreground">
+          <p className="text-sm text-black dark:text-white">
             I'm worried that my progress won't stick, and imposter syndrome has
             been quite the beast! But, I'm feeling hopeful lately and am excited
             to share my journey.
           </p>
-          <p className="text-sm text-card-foreground">
+          <p className="text-sm text-black dark:text-white">
             I'm committed to leaving the world better than I found it, and
             believe that I can use my experiences to help those around me.
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-black/70 dark:text-white/80">
             On the development side of things, I mostly stick to the front end.
             I love creativity and the new age of AI tools makes the front end
             that much more fun (and important!). I'd like to get deeper into
             backend development, machine learning, and deep tech, but I have a
             long way to go. I hope to share that journey as often as possible
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-black/70 dark:text-white/80">
             My process is iterative and collaborative, so please reach out! I
             believe the best work comes from a place of curiosity and rigorous
             experimentation. That's what my incubator is all about. It's a
@@ -106,7 +108,7 @@ export function BentoGrid() {
             excited to make some noise and share what we're working on!
           </p>
           <div className="space-y-2 pt-4">
-            <h4 className="font-bold text-sm uppercase tracking-wider text-card-foreground">
+            <h4 className="font-bold text-sm uppercase tracking-wider text-black dark:text-white">
               Core Stack
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -118,7 +120,11 @@ export function BentoGrid() {
                 "GLSL",
                 "Framer Motion",
               ].map((skill) => (
-                <Badge key={skill} variant="secondary" className="rounded-none">
+                <Badge
+                  key={skill}
+                  variant="secondary"
+                  className="rounded-none text-black border-black/20 dark:text-white dark:border-white/30"
+                >
                   {skill}
                 </Badge>
               ))}
@@ -132,13 +138,13 @@ export function BentoGrid() {
         id="contact"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-primary text-primary-foreground col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-1"
+        className="scroll-mt-24 rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-1"
       >
-        <CardHeader className="border-b border-primary-foreground/50 p-4">
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/30">
           <h3 className="font-bold text-lg">Contact</h3>
         </CardHeader>
         <CardContent className="p-4 space-y-4">
-          <p className="text-sm text-primary-foreground/80">
+          <p className="text-sm text-black/70 dark:text-white/80">
             Would love to get connected!
           </p>
           <div className="space-y-2">
@@ -183,18 +189,19 @@ export function BentoGrid() {
 
       {/* Project 1 */}
       <MotionCard
+        id="portfolio"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-card col-span-1 md:col-span-2 lg:col-span-2"
+        className="scroll-mt-24 rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-2 lg:col-span-2"
       >
-        <CardHeader className="border-b border-border p-4">
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <div className="flex justify-between items-center">
-            <h3 className="font-bold text-lg text-card-foreground">
+            <h3 className="font-bold text-lg text-black dark:text-white">
               Project: r.technology
             </h3>
             <Badge
               variant="outline"
-              className="rounded-none border-border text-muted-foreground"
+              className="rounded-none border-black/20 text-black/60 dark:border-white/30 dark:text-white/80"
             >
               WEB
             </Badge>
@@ -210,15 +217,15 @@ export function BentoGrid() {
               className="w-full h-full object-cover opacity-80"
             />
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-black/70 dark:text-white/80">
             A clean landing page for the incubator I'm working on. Built with
             R3F, Next and React. Deployed on Vercel
           </p>
         </CardContent>
-        <CardFooter className="border-t border-border p-4">
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
           <Link
             href="https://r.technology"
-            className="flex items-center font-bold text-sm uppercase tracking-wider text-card-foreground hover:underline"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
           >
             View Project <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
@@ -229,10 +236,10 @@ export function BentoGrid() {
       <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-card col-span-1 md:col-span-4"
+        className="rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-4"
       >
-        <CardHeader className="border-b border-border p-4">
-          <h3 className="font-bold text-lg text-card-foreground">
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <h3 className="font-bold text-lg text-black dark:text-white">
             Project: Founder Journey
           </h3>
         </CardHeader>
@@ -246,14 +253,14 @@ export function BentoGrid() {
               className="w-full h-full object-cover opacity-80"
             />
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-black/70 dark:text-white/80">
             Built with v0 for a career talk with students
           </p>
         </CardContent>
-        <CardFooter className="border-t border-border p-4">
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
           <Link
             href="https://v0-gakyqhqc-landing-page.vercel.app/"
-            className="flex items-center font-bold text-sm uppercase tracking-wider text-card-foreground hover:underline"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
           >
             Explore <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
