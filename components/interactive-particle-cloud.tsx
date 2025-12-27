@@ -1,9 +1,10 @@
 "use client";
 
 import * as THREE from "three";
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { useTheme } from "next-themes";
 
 // --- Constants for Particle Behavior ---
 const PARTICLE_COUNT = 15000; // Increased for a denser cloud
@@ -25,9 +26,19 @@ const NOISE_STRENGTH = 0.0001;
 // Center Reset Logic
 const CENTER_RESET_THRESHOLD = 0.25; // Larger threshold for more frequent resets
 
-type ParticlesProps = { particleCount: number };
+type ParticlesProps = {
+  particleCount: number;
+  backgroundColor: string;
+  particleColor: string;
+  useNormalBlending: boolean;
+};
 
-function Particles({ particleCount }: ParticlesProps) {
+function Particles({
+  particleCount,
+  backgroundColor,
+  particleColor,
+  useNormalBlending,
+}: ParticlesProps) {
   const { scene, viewport } = useThree();
   const pointsRef = useRef<THREE.Points>(null!);
   const velocitiesRef = useRef<Float32Array>(
@@ -57,8 +68,8 @@ function Particles({ particleCount }: ParticlesProps) {
   }, []);
 
   useEffect(() => {
-    scene.background = new THREE.Color("#000000");
-  }, []);
+    scene.background = new THREE.Color(backgroundColor);
+  }, [backgroundColor, scene]);
 
   useEffect(() => {
     velocitiesRef.current = new Float32Array(particleCount * 3);
@@ -171,19 +182,19 @@ function Particles({ particleCount }: ParticlesProps) {
       <bufferGeometry attach="geometry">
         <bufferAttribute
           attach="attributes-position"
-          count={particleCount}
-          array={initialParticlePositions}
-          itemSize={3}
+          args={[initialParticlePositions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
         attach="material"
         size={PARTICLE_SIZE}
-        color="#FFF"
+        color={particleColor}
         sizeAttenuation
         transparent
         opacity={0.65}
-        blending={THREE.AdditiveBlending}
+        blending={
+          useNormalBlending ? THREE.NormalBlending : THREE.AdditiveBlending
+        }
         depthWrite={false}
       />
     </points>
@@ -195,17 +206,38 @@ export function InteractiveParticleCloud({
 }: {
   className?: string;
 }) {
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, theme } = useTheme();
   const isMobile = useIsMobile();
   const count = isMobile ? 5000 : 15000;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  const themePreference = theme ?? "system";
+  const currentTheme = mounted
+    ? themePreference === "system"
+      ? resolvedTheme
+      : themePreference
+    : undefined;
+  const isDark = currentTheme === "dark";
+  const backgroundColor = isDark ? "#000000" : "#ffffff";
+  const particleColor = isDark ? "#ffffff" : "#000000";
+
   return (
     <div className={className}>
       <Canvas
-        eventSource={typeof window !== "undefined" ? document : undefined}
+        eventSource={typeof window !== "undefined" ? document.body : undefined}
         eventPrefix="client"
         camera={{ position: [0, 0, 4.0], fov: 70 }}
       >
         <ambientLight intensity={0.5} />
-        <Particles particleCount={count} key={count} />
+        <Particles
+          particleCount={count}
+          key={`${count}-${isDark ? "dark" : "light"}`}
+          backgroundColor={backgroundColor}
+          particleColor={particleColor}
+          useNormalBlending={!isDark}
+        />
       </Canvas>
     </div>
   );
