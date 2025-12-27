@@ -69,8 +69,8 @@ export function BentoGrid() {
             <p className="text-sm text-black dark:text-white">
               I'm an entrepreneur with a passion for life. I love music,
               running, and technology. I'm particularly interested in AI and
-              frontier technology. I'm currently working on building an
-              incubator called r.technology, it's been challenging and
+              frontier technology. I'm currently working on an
+              incubator called r.technology, it's challenging and
               rewarding! Our first product is braign.io, see below
             </p>
             <p className="text-sm text-black dark:text-white">
