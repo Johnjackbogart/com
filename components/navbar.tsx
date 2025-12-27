@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun, Monitor } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
@@ -25,12 +25,20 @@ export function Navbar() {
     setMounted(true);
   }, []);
 
+  const themePreference = theme ?? "system";
   const currentTheme = mounted
-    ? theme === "system"
+    ? themePreference === "system"
       ? resolvedTheme
-      : theme
+      : themePreference
     : undefined;
   const isDark = currentTheme === "dark";
+  const isSystem = themePreference === "system";
+  const nextTheme =
+    themePreference === "system"
+      ? "light"
+      : themePreference === "light"
+        ? "dark"
+        : "system";
   const iconColorClass = isDark ? "text-white" : "text-black";
   const toggleButtonBase =
     "h-10 flex items-center justify-center rounded-none border border-border/50 bg-transparent transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
@@ -108,11 +116,13 @@ export function Navbar() {
             <button
               type="button"
               aria-label="Toggle theme"
-              onClick={() => setTheme(isDark ? "light" : "dark")}
+              onClick={() => setTheme(nextTheme)}
               className={cn(toggleButtonSquare, toggleButtonBg)}
             >
               {mounted ? (
-                isDark ? (
+                isSystem ? (
+                  <Monitor className={`h-5 w-5 ${iconColorClass}`} />
+                ) : isDark ? (
                   <Moon className={`h-5 w-5 ${iconColorClass}`} />
                 ) : (
                   <Sun className={`h-5 w-5 ${iconColorClass}`} />

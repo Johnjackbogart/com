@@ -65,6 +65,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
+          storageKey="theme-preference"
         >
           <ParticleCloudBackground className="fixed inset-0 h-full w-full -z-10 pointer-events-none" />
           <div className="relative z-0">

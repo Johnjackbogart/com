@@ -213,10 +213,11 @@ export function InteractiveParticleCloud({
   useEffect(() => {
     setMounted(true);
   }, []);
+  const themePreference = theme ?? "system";
   const currentTheme = mounted
-    ? theme === "system"
+    ? themePreference === "system"
       ? resolvedTheme
-      : theme
+      : themePreference
     : undefined;
   const isDark = currentTheme === "dark";
   const backgroundColor = isDark ? "#000000" : "#ffffff";

@@ -57,57 +57,47 @@ export function BentoGrid() {
         id="about"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-2"
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <h3 className="font-bold text-lg text-black dark:text-white">
             About Me
           </h3>
         </CardHeader>
-        <CardContent className="p-4 space-y-4">
-          <p className="text-sm text-black dark:text-white">
-            I'm an entrepreneur with a passion for life. I love music, running,
-            and technology. I'm particularly interested in AI and frontier
-            technology. I'm currently working on building an incubator called
-            r.technology, it's been challenging and rewarding!
-          </p>
-          <p className="text-sm text-black dark:text-white">
-            I've struggled with my health throughout my life, but have recently
-            made a lot of improvements. I just ran a 100 mile ultramarathon in
-            July and was very inspired by that experience. I'm currently
-            planning my next adventure!
-          </p>
-          <p className="text-sm text-black dark:text-white">
-            Some of the changes I've made include digging into my passions like
-            running, music, and technology. Additionally, I've done a ton of
-            internal work to get to where I'm at today. Mostly, this centers
-            around self love, but I also owe a ton of my progress to my
-            supportive friends and family.
-          </p>
-          <p className="text-sm text-black dark:text-white">
-            I'm worried that my progress won't stick, and imposter syndrome has
-            been quite the beast! But, I'm feeling hopeful lately and am excited
-            to share my journey.
-          </p>
-          <p className="text-sm text-black dark:text-white">
-            I'm committed to leaving the world better than I found it, and
-            believe that I can use my experiences to help those around me.
-          </p>
-          <p className="text-sm text-black/70 dark:text-white/80">
-            On the development side of things, I mostly stick to the front end.
-            I love creativity and the new age of AI tools makes the front end
-            that much more fun (and important!). I'd like to get deeper into
-            backend development, machine learning, and deep tech, but I have a
-            long way to go. I hope to share that journey as often as possible
-          </p>
-          <p className="text-sm text-black/70 dark:text-white/80">
-            My process is iterative and collaborative, so please reach out! I
-            believe the best work comes from a place of curiosity and rigorous
-            experimentation. That's what my incubator is all about. It's a
-            grassroots bootstrapped organization with a bone to pick. We're
-            excited to make some noise and share what we're working on!
-          </p>
-          <div className="space-y-2 pt-4">
+        <CardContent className="p-4 flex-1 flex flex-col">
+          <div className="space-y-4">
+            <p className="text-sm text-black dark:text-white">
+              I'm an entrepreneur with a passion for life. I love music,
+              running, and technology. I'm particularly interested in AI and
+              frontier technology. I'm currently working on building an
+              incubator called r.technology, it's been challenging and
+              rewarding! Our first product is braign.io, see below
+            </p>
+            <p className="text-sm text-black dark:text-white">
+              I'm committed to leaving the world better than I found it, and
+              believe that I can use my experiences to help those around me. I'm
+              an advocate for health of all kinds, self love, and hard work. I
+              do find myself frustrated with the world we live in quite often,
+              but also grateful for how far humanity has come. Running water is
+              something special
+            </p>
+            <p className="text-sm text-black/70 dark:text-white/80">
+              On the development side of things, I mostly stick to the front
+              end. I love creativity and the new age of AI tools makes the front
+              end that much more fun (and important!). I'd like to get deeper
+              into backend development, machine learning, and deep tech, but I
+              have a long way to go. I hope to share that journey as often as
+              possible
+            </p>
+            <p className="text-sm text-black/70 dark:text-white/80">
+              My process is iterative and collaborative, so please reach out! I
+              believe the best work comes from a place of curiosity and rigorous
+              experimentation. That's what my incubator is all about. It's a
+              grassroots bootstrapped organization with a bone to pick. We're
+              excited to make some noise and share what we're working on!
+            </p>
+          </div>
+          <div className="mt-auto space-y-2 pt-4">
             <h4 className="font-bold text-sm uppercase tracking-wider text-black dark:text-white">
               Core Stack
             </h4>

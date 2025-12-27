@@ -2,9 +2,9 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Github, Linkedin, ArrowLeft, Send, Sun, Moon } from "lucide-react"
+import { Github, Linkedin, ArrowLeft, Send, Sun, Moon, Monitor } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -13,15 +13,32 @@ import { Label } from "@/components/ui/label"
 import { useTheme } from "next-themes"
 
 export default function ContactPage() {
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const currentTheme = theme === "system" ? resolvedTheme : theme
+  const themePreference = theme ?? "system"
+  const currentTheme = mounted
+    ? themePreference === "system"
+      ? resolvedTheme
+      : themePreference
+    : undefined
   const isDark = currentTheme === "dark"
+  const isSystem = themePreference === "system"
+  const nextTheme =
+    themePreference === "system"
+      ? "light"
+      : themePreference === "light"
+        ? "dark"
+        : "system"
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   })
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,10 +71,20 @@ export default function ContactPage() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(isDark ? "light" : "dark")}
+            onClick={() => setTheme(nextTheme)}
             className="text-foreground hover:text-muted-foreground"
           >
-            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            {mounted ? (
+              isSystem ? (
+                <Monitor className="w-5 h-5" />
+              ) : isDark ? (
+                <Moon className="w-5 h-5" />
+              ) : (
+                <Sun className="w-5 h-5" />
+              )
+            ) : (
+              <Sun className="w-5 h-5" />
+            )}
             <span className="sr-only">Toggle theme</span>
           </Button>
         </div>
