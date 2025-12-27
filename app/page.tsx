@@ -15,10 +15,10 @@ export default function HomePage() {
           {/* This text container sits on top, but passes mouse events through */}
           <div className="pointer-events-none h-full">
             <div className="flex flex-col relative justify-between z-10 h-full">
-              <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-white/80 dark:text-black">
+              <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black dark:text-white/80">
                 Athlete | Creative | Founder
               </h1>
-              <p className="mt-4 max-w-3xl mx-auto text-base md:text-lg text-white/60 dark:text-black/70">
+              <p className="mt-4 max-w-3xl mx-auto text-base md:text-lg text-black/70 dark:text-white/60">
                 Hi :) I'm John! I'm interested in making the world a better
                 place
               </p>

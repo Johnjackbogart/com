@@ -1,6 +1,6 @@
 import type React from "react";
 import type { Metadata } from "next";
-import "../styles/globals.css";
+import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ParticleCloudBackground } from "@/components/particle-background";
 import dynamic from "next/dynamic";
@@ -62,7 +62,7 @@ export default function RootLayout({
       <body className="font-mono w-full h-full ">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

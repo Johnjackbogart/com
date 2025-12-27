@@ -182,9 +182,7 @@ function Particles({
       <bufferGeometry attach="geometry">
         <bufferAttribute
           attach="attributes-position"
-          count={particleCount}
-          array={initialParticlePositions}
-          itemSize={3}
+          args={[initialParticlePositions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
@@ -209,21 +207,25 @@ export function InteractiveParticleCloud({
   className?: string;
 }) {
   const [mounted, setMounted] = useState(false);
-  const { resolvedTheme } = useTheme();
+  const { resolvedTheme, theme } = useTheme();
   const isMobile = useIsMobile();
   const count = isMobile ? 5000 : 15000;
   useEffect(() => {
     setMounted(true);
   }, []);
-  const currentTheme = mounted ? resolvedTheme ?? "light" : "light";
+  const currentTheme = mounted
+    ? theme === "system"
+      ? resolvedTheme
+      : theme
+    : undefined;
   const isDark = currentTheme === "dark";
-  const backgroundColor = isDark ? "#ffffff" : "#000000";
-  const particleColor = isDark ? "#000000" : "#ffffff";
+  const backgroundColor = isDark ? "#000000" : "#ffffff";
+  const particleColor = isDark ? "#ffffff" : "#000000";
 
   return (
     <div className={className}>
       <Canvas
-        eventSource={typeof window !== "undefined" ? document : undefined}
+        eventSource={typeof window !== "undefined" ? document.body : undefined}
         eventPrefix="client"
         camera={{ position: [0, 0, 4.0], fov: 70 }}
       >
@@ -233,7 +235,7 @@ export function InteractiveParticleCloud({
           key={`${count}-${isDark ? "dark" : "light"}`}
           backgroundColor={backgroundColor}
           particleColor={particleColor}
-          useNormalBlending={isDark}
+          useNormalBlending={!isDark}
         />
       </Canvas>
     </div>

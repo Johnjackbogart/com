@@ -19,21 +19,25 @@ const mobileLinks = desktopLinks;
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme, theme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const currentTheme = mounted ? (resolvedTheme ?? "light") : "light";
+  const currentTheme = mounted
+    ? theme === "system"
+      ? resolvedTheme
+      : theme
+    : undefined;
   const isDark = currentTheme === "dark";
-  const iconColorClass = isDark ? "text-black" : "text-white";
+  const iconColorClass = isDark ? "text-white" : "text-black";
   const toggleButtonBase =
     "h-10 flex items-center justify-center rounded-none border border-border/50 bg-transparent transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
   const toggleButtonSquare = `${toggleButtonBase} w-10`;
   const toggleButtonBg = isDark
-    ? "text-black focus-visible:ring-black focus-visible:ring-offset-white"
-    : "text-white focus-visible:ring-white focus-visible:ring-offset-black";
+    ? "text-white focus-visible:ring-white focus-visible:ring-offset-black"
+    : "text-black focus-visible:ring-black focus-visible:ring-offset-white";
   const connectButtonBase =
     "h-10 items-center justify-center gap-2 rounded-none border border-border/50 px-4 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
   const connectButtonBg = isDark
@@ -62,7 +66,7 @@ export function Navbar() {
             <span
               className={cn(
                 "font-bold text-lg hidden sm:inline",
-                isDark ? "text-black" : "text-foreground",
+                isDark ? "text-white" : "text-black",
               )}
             >
               John Bogart
@@ -76,7 +80,7 @@ export function Navbar() {
                 href={item.href}
                 className={cn(
                   "text-sm font-medium uppercase tracking-wider hover:text-foreground",
-                  isDark ? "text-black" : "text-muted-foreground",
+                  "text-muted-foreground",
                 )}
               >
                 {item.label}
@@ -144,7 +148,7 @@ export function Navbar() {
               id="mobile-menu"
               className={cn(
                 "fixed right-4 top-16 z-30 w-56 border border-border/70 p-4 shadow-lg shadow-black/40 backdrop-blur",
-                isDark ? "bg-white/90" : "bg-black/90",
+                "bg-background/90",
               )}
             >
               <div className="flex flex-col space-y-3">
@@ -155,7 +159,7 @@ export function Navbar() {
                     onClick={() => setMenuOpen(false)}
                     className={cn(
                       "text-sm font-semibold uppercase tracking-wider",
-                      isDark ? "text-black" : "text-foreground",
+                      "text-foreground",
                       "hover:text-muted-foreground",
                     )}
                   >

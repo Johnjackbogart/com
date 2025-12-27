@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
   Instagram,
   Twitter,
@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -29,14 +29,14 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -47,7 +47,7 @@ export function BentoGrid() {
   return (
     <motion.div
       id="work"
-      className="scroll-mt-24 py-16 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-px bg-white border-l border-r border-black/10 dark:bg-black dark:border-white/20"
+      className="scroll-mt-24 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-px bg-white text-black dark:bg-black dark:text-white"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -57,7 +57,7 @@ export function BentoGrid() {
         id="about"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-2"
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-2"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <h3 className="font-bold text-lg text-black dark:text-white">
@@ -123,7 +123,7 @@ export function BentoGrid() {
                 <Badge
                   key={skill}
                   variant="secondary"
-                  className="rounded-none text-black border-black/20 dark:text-white dark:border-white/30"
+                  className="rounded-none !bg-transparent border-black/20 text-black/70 dark:border-white/30 dark:text-white/80"
                 >
                   {skill}
                 </Badge>
@@ -138,9 +138,9 @@ export function BentoGrid() {
         id="contact"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-1"
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-1 lg:col-span-2 row-span-1 md:row-span-1"
       >
-        <CardHeader className="border-b border-black/10 p-4 dark:border-white/30">
+        <CardHeader className="border-b border-black/20 p-4 dark:border-white/20">
           <h3 className="font-bold text-lg">Contact</h3>
         </CardHeader>
         <CardContent className="p-4 space-y-4">
@@ -192,7 +192,7 @@ export function BentoGrid() {
         id="portfolio"
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-2 lg:col-span-2"
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <div className="flex justify-between items-center">
@@ -210,7 +210,7 @@ export function BentoGrid() {
         <CardContent className="p-4">
           <div className="aspect-video bg-neutral-800 mb-4">
             <Image
-              src="/r_screenshot.png?height=300&width=500"
+              src="/r.png?height=300&width=500"
               alt="Project 1"
               width={500}
               height={300}
@@ -227,7 +227,7 @@ export function BentoGrid() {
             href="https://r.technology"
             className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
           >
-            View Project <ArrowRight className="w-4 h-4 ml-2" />
+            View <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
         </CardFooter>
       </MotionCard>
@@ -236,7 +236,80 @@ export function BentoGrid() {
       <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none bg-white text-black dark:bg-black dark:text-white col-span-1 md:col-span-4"
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <div className="flex justify-between items-center">
+            <h3 className="font-bold text-lg text-black dark:text-white">
+              Project: through.tech
+            </h3>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="aspect-video bg-neutral-800 mb-4">
+            <Image
+              src="/through.png?height=300&width=500"
+              alt="Through.tech screenshot"
+              width={500}
+              height={300}
+              className="w-full h-full object-cover opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            An AI powered tech consulting group.
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://through.tech"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            View <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
+
+      <MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <div className="flex justify-between items-center">
+            <h3 className="font-bold text-lg text-black dark:text-white">
+              Project: braign.io
+            </h3>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="aspect-video bg-neutral-800 mb-4">
+            <Image
+              src="/braign.png?height=300&width=500"
+              alt="braign.io screenshot"
+              width={500}
+              height={300}
+              className="w-full h-full object-cover opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            Tools for the technical marketer.
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://braign.io"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            View <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
+
+      {/* Project 3 */}
+      <MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <h3 className="font-bold text-lg text-black dark:text-white">

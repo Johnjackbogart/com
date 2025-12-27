@@ -13,7 +13,9 @@ import { Label } from "@/components/ui/label"
 import { useTheme } from "next-themes"
 
 export default function ContactPage() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme } = useTheme()
+  const currentTheme = theme === "system" ? resolvedTheme : theme
+  const isDark = currentTheme === "dark"
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -52,10 +54,10 @@ export default function ContactPage() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(isDark ? "light" : "dark")}
             className="text-foreground hover:text-muted-foreground"
           >
-            {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             <span className="sr-only">Toggle theme</span>
           </Button>
         </div>
