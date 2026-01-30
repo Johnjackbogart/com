@@ -67,17 +67,19 @@ export function BentoGrid() {
         <CardContent className="p-4 flex-1 flex flex-col">
           <div className="space-y-4">
             <p className="text-sm text-black dark:text-white">
-              I'm an entrepreneur with a passion for life. I love music,
-              running, and technology. I'm particularly interested in AI and
-              frontier technology. I'm currently working on building an
-              incubator called r.technology, it's been challenging and
-              rewarding! Our first product is braign.io, see below
+              I'm an entrepreneur interested in biology and computing. I love
+              music, running, and coding. I'm currently most interested in AI
+              and frontier technology. I'm working on building an incubator
+              called r.technology, it's been challenging and rewarding! Our
+              first product is braign.io, see below
             </p>
             <p className="text-sm text-black dark:text-white">
               I'm committed to leaving the world better than I found it, and
               believe that I can use my experiences to help those around me. I'm
-              an advocate for health of all kinds, self love, and hard work. I
-              do find myself frustrated with the world we live in quite often,
+              an advocate for health of all kinds, self love, and hard work.
+            </p>
+            <p className="text-sm text-black dark:text-white">
+              I do find myself frustrated with the world we live in quite often,
               but also grateful for how far humanity has come. Running water is
               something special
             </p>
@@ -135,7 +137,7 @@ export function BentoGrid() {
         </CardHeader>
         <CardContent className="p-4 space-y-4">
           <p className="text-sm text-black/70 dark:text-white/80">
-            Would love to get connected!
+            I would love to get connected!
           </p>
           <div className="space-y-2">
             <Link
@@ -146,11 +148,11 @@ export function BentoGrid() {
               <span>johnjackbogart@gmail.com</span>
             </Link>
             <Link
-              href="https://www.instagram.com/johnjackbogart"
+              href="https://github.com/johnjackbogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Instagram className="w-4 h-4" />
-              <span>Instagram</span>
+              <Github className="w-4 h-4" />
+              <span>GitHub</span>
             </Link>
             <Link
               href="https://twitter.com/JohnJackBogart"
@@ -167,11 +169,11 @@ export function BentoGrid() {
               <span>LinkedIn</span>
             </Link>
             <Link
-              href="https://github.com/johnjackbogart"
+              href="https://www.instagram.com/johnjackbogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Github className="w-4 h-4" />
-              <span>GitHub</span>
+              <Instagram className="w-4 h-4" />
+              <span>Instagram</span>
             </Link>
           </div>
         </CardContent>
