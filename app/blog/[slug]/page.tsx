@@ -73,7 +73,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           Back to Blog
         </Link>
 
-        <article className="max-w-3xl mx-auto">
+        <article className="max-w-3xl mx-auto bg-white/80 dark:bg-black/80 backdrop-blur-md p-6 md:p-8">
           <header className="mb-8 border-b border-border pb-8">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-black dark:text-white mb-4">
               {post.title}
