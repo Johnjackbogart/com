@@ -1,35 +1,47 @@
+import { Metadata } from "next";
 import Link from "next/link";
-import { BentoGrid } from "@/components/bento-grid";
 import { Github } from "lucide-react";
 import { Navbar } from "@/components/navbar";
+import { BlogList } from "@/components/blog/blog-list";
 import { getPostPreviews } from "@/lib/blog";
 
-export default function HomePage() {
-  const latestPosts = getPostPreviews(2);
+export const metadata: Metadata = {
+  title: "Blog | John Bogart",
+  description:
+    "Thoughts on technology, AI, entrepreneurship, and personal growth.",
+  openGraph: {
+    title: "Blog | John Bogart",
+    description:
+      "Thoughts on technology, AI, entrepreneurship, and personal growth.",
+    type: "website",
+  },
+};
+
+export default function BlogPage() {
+  const posts = getPostPreviews();
+
   return (
     <div className="min-h-screen w-full">
       <Navbar />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
-        <section className="relative text-center py-16 md:py-24 border-b border-border h-[60vh] md:h-[70vh] flex flex-col justify-center items-center">
-          {/* The canvas is positioned to fill the section but has no negative z-index */}
-          {/* This text container sits on top, but passes mouse events through */}
-          <div className="pointer-events-none h-full">
-            <div className="flex flex-col relative justify-between z-10 h-full">
-              <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black dark:text-white/80">
-                Athlete | Creative | Founder
-              </h1>
-              <p className="mt-4 max-w-3xl mx-auto text-base md:text-lg text-black/70 dark:text-white/60">
-                Hi :) I'm John! I'm interested in making the world a better
-                place
-              </p>
-            </div>
-          </div>
+        <section className="text-center py-16 md:py-24 border-b border-border">
+          <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black dark:text-white/80">
+            Blog
+          </h1>
+          <p className="mt-4 max-w-3xl mx-auto text-base md:text-lg text-black/70 dark:text-white/60">
+            Thoughts on technology, AI, entrepreneurship, and personal growth
+          </p>
         </section>
 
-        <section>
-          <BentoGrid latestPosts={latestPosts} />
+        <section className="py-12">
+          {posts.length > 0 ? (
+            <BlogList posts={posts} />
+          ) : (
+            <p className="text-center text-black/50 dark:text-white/50">
+              No posts yet. Check back soon!
+            </p>
+          )}
         </section>
       </main>
 

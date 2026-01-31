@@ -10,7 +10,9 @@ import {
   Github,
   Mail,
   ArrowRight,
+  Clock,
 } from "lucide-react";
+import type { BlogPostPreview } from "@/lib/types/blog";
 import {
   Card,
   CardHeader,
@@ -43,7 +45,11 @@ const itemVariants: Variants = {
 
 const MotionCard = motion(Card);
 
-export function BentoGrid() {
+interface BentoGridProps {
+  latestPosts?: BlogPostPreview[];
+}
+
+export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
   return (
     <motion.div
       id="work"
@@ -178,6 +184,56 @@ export function BentoGrid() {
           </div>
         </CardContent>
       </MotionCard>
+
+      {/* Blog Preview */}
+      {latestPosts.length > 0 && (
+        <MotionCard
+          id="blog"
+          variants={itemVariants}
+          whileHover={{ y: -5, scale: 1.01 }}
+          className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+        >
+          <CardHeader className="border-b border-black/20 p-4 dark:border-white/20">
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-lg">Latest from the Blog</h3>
+              <Badge
+                variant="outline"
+                className="rounded-none border-black/20 text-black/60 dark:border-white/30 dark:text-white/80"
+              >
+                NEW
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="p-4 space-y-4">
+            {latestPosts.slice(0, 2).map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="block group"
+              >
+                <h4 className="font-bold text-base group-hover:underline text-black dark:text-white">
+                  {post.title}
+                </h4>
+                <p className="text-sm text-black/70 dark:text-white/80 line-clamp-2">
+                  {post.description}
+                </p>
+                <div className="flex items-center gap-2 mt-2 text-xs text-black/50 dark:text-white/50">
+                  <Clock className="w-3 h-3" />
+                  <span>{post.readingTime}</span>
+                </div>
+              </Link>
+            ))}
+          </CardContent>
+          <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+            <Link
+              href="/blog"
+              className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+            >
+              View All Posts <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </CardFooter>
+        </MotionCard>
+      )}
 
       {/* Project 1 */}
       <MotionCard
