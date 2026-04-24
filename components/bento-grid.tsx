@@ -353,6 +353,42 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
         </CardFooter>
       </MotionCard>
 
+      <MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <div className="flex justify-between items-center">
+            <h3 className="font-bold text-lg text-black dark:text-white">
+              Project: gradiator.xyz
+            </h3>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="aspect-video bg-neutral-800 mb-4">
+            <Image
+              src="/gradiator.png?height=300&width=500"
+              alt="gradiator.xyz screenshot"
+              width={500}
+              height={300}
+              className="w-full h-full object-cover opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            A playground for shaping and exporting custom gradients.
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://gradiator.xyz"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            View <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
+
       {/* Project 3 */}
       <MotionCard
         variants={itemVariants}
