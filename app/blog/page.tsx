@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { Code2 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { BlogList } from "@/components/blog/blog-list";
 import { getPostPreviews } from "@/lib/blog";
@@ -62,7 +62,7 @@ export default function BlogPage() {
               href="https://github.com/johnjackbogart"
               className="text-muted-foreground hover:text-foreground"
             >
-              <Github className="w-5 h-5" />
+              <Code2 className="w-5 h-5" />
             </Link>
           </div>
         </div>

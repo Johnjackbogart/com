@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Clock, Calendar, Github } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, Code2 } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Navbar } from "@/components/navbar";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/blog";
@@ -129,7 +129,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               href="https://github.com/johnjackbogart"
               className="text-muted-foreground hover:text-foreground"
             >
-              <Github className="w-5 h-5" />
+              <Code2 className="w-5 h-5" />
             </Link>
           </div>
         </div>

@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import {
-  Instagram,
-  Twitter,
-  Linkedin,
-  Github,
+  Camera,
+  MessageCircle,
+  BriefcaseBusiness,
+  Code2,
   Mail,
   ArrowRight,
   Clock,
@@ -157,28 +157,28 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
               href="https://github.com/johnjackbogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Github className="w-4 h-4" />
+              <Code2 className="w-4 h-4" />
               <span>GitHub</span>
             </Link>
             <Link
               href="https://twitter.com/JohnJackBogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Twitter className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4" />
               <span>Twitter</span>
             </Link>
             <Link
               href="https://www.linkedin.com/in/john-jack-bogart/"
               className="flex items-center gap-2 hover:underline"
             >
-              <Linkedin className="w-4 h-4" />
+              <BriefcaseBusiness className="w-4 h-4" />
               <span>LinkedIn</span>
             </Link>
             <Link
               href="https://www.instagram.com/johnjackbogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Instagram className="w-4 h-4" />
+              <Camera className="w-4 h-4" />
               <span>Instagram</span>
             </Link>
           </div>
