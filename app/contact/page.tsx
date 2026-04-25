@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Github, Linkedin, ArrowLeft, Send, Sun, Moon, Monitor } from "lucide-react"
+import { Code2, BriefcaseBusiness, ArrowLeft, Send, Sun, Moon, Monitor } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -66,7 +66,7 @@ export default function ContactPage() {
         </Link>
         <div className="flex items-center gap-4">
           <Link href="https://github.com" className="text-foreground hover:text-muted-foreground transition-colors">
-            <Github className="w-5 h-5" />
+            <Code2 className="w-5 h-5" />
           </Link>
           <Button
             variant="ghost"
@@ -198,13 +198,13 @@ export default function ContactPage() {
                         href="https://github.com"
                         className="text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        <Github className="w-6 h-6" />
+                        <Code2 className="w-6 h-6" />
                       </Link>
                       <Link
                         href="https://linkedin.com"
                         className="text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        <Linkedin className="w-6 h-6" />
+                        <BriefcaseBusiness className="w-6 h-6" />
                       </Link>
                     </div>
                   </div>

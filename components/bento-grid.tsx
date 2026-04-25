@@ -4,13 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import {
-  Instagram,
-  Twitter,
-  Linkedin,
-  Github,
+  Camera,
+  MessageCircle,
+  BriefcaseBusiness,
+  Code2,
   Mail,
   ArrowRight,
+  Clock,
 } from "lucide-react";
+import type { BlogPostPreview } from "@/lib/types/blog";
 import {
   Card,
   CardHeader,
@@ -43,7 +45,11 @@ const itemVariants: Variants = {
 
 const MotionCard = motion(Card);
 
-export function BentoGrid() {
+interface BentoGridProps {
+  latestPosts?: BlogPostPreview[];
+}
+
+export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
   return (
     <motion.div
       id="work"
@@ -151,33 +157,83 @@ export function BentoGrid() {
               href="https://github.com/johnjackbogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Github className="w-4 h-4" />
+              <Code2 className="w-4 h-4" />
               <span>GitHub</span>
             </Link>
             <Link
               href="https://twitter.com/JohnJackBogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Twitter className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4" />
               <span>Twitter</span>
             </Link>
             <Link
               href="https://www.linkedin.com/in/john-jack-bogart/"
               className="flex items-center gap-2 hover:underline"
             >
-              <Linkedin className="w-4 h-4" />
+              <BriefcaseBusiness className="w-4 h-4" />
               <span>LinkedIn</span>
             </Link>
             <Link
               href="https://www.instagram.com/johnjackbogart"
               className="flex items-center gap-2 hover:underline"
             >
-              <Instagram className="w-4 h-4" />
+              <Camera className="w-4 h-4" />
               <span>Instagram</span>
             </Link>
           </div>
         </CardContent>
       </MotionCard>
+
+      {/* Blog Preview */}
+      {latestPosts.length > 0 && (
+        <MotionCard
+          id="blog"
+          variants={itemVariants}
+          whileHover={{ y: -5, scale: 1.01 }}
+          className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+        >
+          <CardHeader className="border-b border-black/20 p-4 dark:border-white/20">
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-lg">Latest from the Blog</h3>
+              <Badge
+                variant="outline"
+                className="rounded-none border-black/20 text-black/60 dark:border-white/30 dark:text-white/80"
+              >
+                NEW
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="p-4 space-y-4">
+            {latestPosts.slice(0, 2).map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="block group"
+              >
+                <h4 className="font-bold text-base group-hover:underline text-black dark:text-white">
+                  {post.title}
+                </h4>
+                <p className="text-sm text-black/70 dark:text-white/80 line-clamp-2">
+                  {post.description}
+                </p>
+                <div className="flex items-center gap-2 mt-2 text-xs text-black/50 dark:text-white/50">
+                  <Clock className="w-3 h-3" />
+                  <span>{post.readingTime}</span>
+                </div>
+              </Link>
+            ))}
+          </CardContent>
+          <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+            <Link
+              href="/blog"
+              className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+            >
+              View All Posts <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </CardFooter>
+        </MotionCard>
+      )}
 
       {/* Project 1 */}
       <MotionCard
@@ -290,6 +346,42 @@ export function BentoGrid() {
         <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
           <Link
             href="https://braign.io"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            View <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
+
+      <MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <div className="flex justify-between items-center">
+            <h3 className="font-bold text-lg text-black dark:text-white">
+              Project: gradiator.xyz
+            </h3>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="aspect-video bg-neutral-800 mb-4">
+            <Image
+              src="/gradiator.png?height=300&width=500"
+              alt="gradiator.xyz screenshot"
+              width={500}
+              height={300}
+              className="w-full h-full object-cover opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            A playground for shaping and exporting custom gradients.
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://gradiator.xyz"
             className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
           >
             View <ArrowRight className="w-4 h-4 ml-2" />

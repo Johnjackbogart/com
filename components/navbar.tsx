@@ -9,6 +9,7 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 const desktopLinks = [
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "#contact" },
   { label: "About", href: "#about" },
   { label: "Portfolio", href: "#portfolio" },
