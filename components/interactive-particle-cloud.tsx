@@ -19,7 +19,7 @@ const DAMPING_FACTOR = 0.6; // Less damping for more floaty movement
 // Additional moving attractors
 const ATTRACTOR_POINT_COUNT = 2;
 const ATTRACTOR_POINT_SIZE = 0.08;
-const ATTRACTOR_RADIUS = 2.0;
+const ATTRACTOR_RADIUS = 45;
 const ATTRACTOR_FORCE = 0.015;
 const ATTRACTOR_RETURN_FORCE = 0.004;
 const ATTRACTOR_RANDOM_TARGET_FORCE = 0.008;
@@ -83,15 +83,7 @@ function Particles({
     return halfWidth * ATTRACTOR_INITIAL_SIDE_RATIO;
   }, [viewport.width]);
   const attractorPositions = useMemo(
-    () =>
-      new Float32Array([
-        -attractorInitialX,
-        0,
-        0,
-        attractorInitialX,
-        0,
-        0,
-      ]),
+    () => new Float32Array([-attractorInitialX, 0, 0, attractorInitialX, 0, 0]),
     [attractorInitialX],
   );
   const attractorVelocities = useMemo(
@@ -99,15 +91,7 @@ function Particles({
     [],
   );
   const attractorTargets = useMemo(
-    () =>
-      new Float32Array([
-        attractorInitialX,
-        0,
-        0,
-        -attractorInitialX,
-        0,
-        0,
-      ]),
+    () => new Float32Array([attractorInitialX, 0, 0, -attractorInitialX, 0, 0]),
     [attractorInitialX],
   );
   const attractorTargetTimers = useMemo(
@@ -270,12 +254,9 @@ function Particles({
           const safeDistance = Math.max(distanceAttractor, 0.0001);
           const forceFactor =
             (ATTRACTOR_RADIUS - safeDistance) / ATTRACTOR_RADIUS;
-          accX +=
-            (dxAttractor / safeDistance) * forceFactor * ATTRACTOR_FORCE;
-          accY +=
-            (dyAttractor / safeDistance) * forceFactor * ATTRACTOR_FORCE;
-          accZ +=
-            (dzAttractor / safeDistance) * forceFactor * ATTRACTOR_FORCE;
+          accX += (dxAttractor / safeDistance) * forceFactor * ATTRACTOR_FORCE;
+          accY += (dyAttractor / safeDistance) * forceFactor * ATTRACTOR_FORCE;
+          accZ += (dzAttractor / safeDistance) * forceFactor * ATTRACTOR_FORCE;
         }
       }
 
