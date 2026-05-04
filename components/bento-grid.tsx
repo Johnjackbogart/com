@@ -73,21 +73,30 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
         <CardContent className="p-4 flex-1 flex flex-col">
           <div className="space-y-4">
             <p className="text-sm text-black dark:text-white">
-              I'm an entrepreneur interested in biology and computing. I love
-              music, running, and coding. I'm currently most interested in AI
-              and frontier technology. I'm working on building an incubator
-              called r.technology, it's been challenging and rewarding! Our
-              first product is braign.io, see below
+              Hi, I'm Jack. I love making art, but it often feels like work. So
+              I also love to work. Right now, my work is focused on tech, But I
+              also want to work on painting, writing, music and running. My goal
+              is to grow my incubater r.technology. I'm currently failing at
+              achieving this goal, but I'm having fun doing it. Our first
+              product is braign.io, see below
             </p>
             <p className="text-sm text-black dark:text-white">
-              I'm committed to leaving the world better than I found it, and
-              believe that I can use my experiences to help those around me. I'm
-              an advocate for health of all kinds, self love, and hard work.
+              On a personal note, I'm committed to leaving the world better than
+              I found it, and believe that I can use my experiences to help
+              those around me. I'm an advocate for health of all kinds, self
+              love, and hard work.
             </p>
             <p className="text-sm text-black dark:text-white">
-              I do find myself frustrated with the world we live in quite often,
-              but also grateful for how far humanity has come. Running water is
-              something special
+              I recently found out just how much I enjoy making art (painting,
+              music, and poetry). Another goal of mine is finding a way to
+              pursue my lifelong dream of starting a company while still finding
+              space in my life to make art and run. I'd like to find a balance
+              in my life.
+            </p>
+            <p className="text-sm text-black dark:text-white">
+              Also, I find myself frustrated with the world we live in quite
+              often, but also grateful for how far humanity has come. Running
+              water is something special
             </p>
             <p className="text-sm text-black/70 dark:text-white/80">
               On the development side of things, I mostly stick to the front
