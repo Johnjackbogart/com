@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BentoGrid } from "@/components/bento-grid";
-import { Hero } from "@/components/hero";
+import Hero from "@/components/hero";
 import { Code2 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { getPostPreviews } from "@/lib/blog";
