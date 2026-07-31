@@ -18,7 +18,7 @@ export default function HomePage() {
           <div className="pointer-events-none h-full">
             <div className="flex flex-col relative justify-center gap-2 z-10 h-full">
               <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black dark:text-white/80">
-                Athlete | Creative | Founder
+                I love to code!!!!
               </h1>
               <p className="max-w-3xl mx-auto text-base md:text-lg text-black/70 dark:text-white/60">
                 Hi :) I'm John! I'm interested in making the world a better
