@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ParticleCloudBackground } from "@/components/particle-background";
-import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "John Bogart",
