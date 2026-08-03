@@ -30,6 +30,15 @@ const PARTICLE_SIZE = 0.12; // sphere diameter
 const STEP_DURATION = 0.22; // seconds to travel one grid unit
 const MAX_FRAME_DELTA = 0.1; // clamp so a stalled tab can't skip grid cells
 
+// --- Click-to-scatter ---
+// Clicking raycasts to a point in the grid; particles within EXPLOSION_RADIUS
+// of that point get kicked outward (falloff by distance), then a
+// spring-damper pulls each one back toward its walk position.
+const SCATTER_STIFFNESS = 45;
+const SCATTER_DAMPING = 12;
+const EXPLOSION_RADIUS = 4.5;
+const EXPLOSION_MAX_STRENGTH = 30;
+
 // Each particle picks one of the 6 axis-aligned neighbors every time it
 // reaches a vertex.
 const AXIS_DELTAS: ReadonlyArray<readonly [number, number, number]> = [
@@ -73,9 +82,12 @@ function Particles({
   particleColor,
   useNormalBlending,
 }: ParticlesProps) {
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
   const meshRef = useRef<THREE.InstancedMesh>(null!);
   const dummy = useMemo(() => new THREE.Object3D(), []);
+  const raycaster = useMemo(() => new THREE.Raycaster(), []);
+  const pointer = useMemo(() => new THREE.Vector2(), []);
+  const explosionPoint = useMemo(() => new THREE.Vector3(), []);
 
   const walkState = useMemo(() => {
     const currentGrid = new Int16Array(particleCount * 3);
@@ -100,8 +112,63 @@ function Particles({
       targetGrid[i3 + 2] = currentGrid[i3 + 2];
     }
 
-    return { currentGrid, targetGrid, progress };
+    // Extra spring-driven offset layered on top of the grid walk, used to
+    // scatter particles outward on click.
+    const scatterOffset = new Float32Array(particleCount * 3);
+    const scatterVelocity = new Float32Array(particleCount * 3);
+
+    return { currentGrid, targetGrid, progress, scatterOffset, scatterVelocity };
   }, [particleCount]);
+
+  useEffect(() => {
+    // Grid center sits at the world origin, so a plane through the origin
+    // facing the (fixed) camera approximates the depth the click landed at.
+    const explosionPlane = new THREE.Plane().setFromNormalAndCoplanarPoint(
+      camera.position.clone().normalize(),
+      new THREE.Vector3(0, 0, 0),
+    );
+
+    const handleClick = (event: MouseEvent) => {
+      pointer.set(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1,
+      );
+      raycaster.setFromCamera(pointer, camera);
+      if (!raycaster.ray.intersectPlane(explosionPlane, explosionPoint)) return;
+
+      const { currentGrid, scatterVelocity } = walkState;
+      const cx = explosionPoint.x;
+      const cy = explosionPoint.y;
+      const cz = explosionPoint.z;
+
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+        const px = currentGrid[i3] * GRID_SPACING;
+        const py = currentGrid[i3 + 1] * GRID_SPACING;
+        const pz = currentGrid[i3 + 2] * GRID_SPACING;
+        let dx = px - cx;
+        let dy = py - cy;
+        let dz = pz - cz;
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        if (dist > EXPLOSION_RADIUS) continue;
+
+        let len = dist;
+        if (len < 1e-4) {
+          dx = Math.random() * 2 - 1;
+          dy = Math.random() * 2 - 1;
+          dz = Math.random() * 2 - 1;
+          len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+        }
+        const falloff = 1 - dist / EXPLOSION_RADIUS;
+        const strength = (EXPLOSION_MAX_STRENGTH * falloff * falloff) / len;
+        scatterVelocity[i3] += dx * strength;
+        scatterVelocity[i3 + 1] += dy * strength;
+        scatterVelocity[i3 + 2] += dz * strength;
+      }
+    };
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, [particleCount, walkState, camera, raycaster, pointer, explosionPoint]);
 
   useEffect(() => {
     scene.background = new THREE.Color(backgroundColor);
@@ -126,7 +193,8 @@ function Particles({
 
   useFrame((_, rawDelta) => {
     if (!meshRef.current) return;
-    const { currentGrid, targetGrid, progress } = walkState;
+    const { currentGrid, targetGrid, progress, scatterOffset, scatterVelocity } =
+      walkState;
     const delta = Math.min(rawDelta, MAX_FRAME_DELTA);
     const step = delta / STEP_DURATION;
 
@@ -153,15 +221,33 @@ function Particles({
       }
       progress[i] = t;
 
+      // Damped spring pulls any scatter offset back toward zero, so a click
+      // kicks particles out and they drift back onto the grid walk.
+      const ox = scatterOffset[i3];
+      const oy = scatterOffset[i3 + 1];
+      const oz = scatterOffset[i3 + 2];
+      const vx = scatterVelocity[i3] + (-SCATTER_STIFFNESS * ox - SCATTER_DAMPING * scatterVelocity[i3]) * delta;
+      const vy = scatterVelocity[i3 + 1] + (-SCATTER_STIFFNESS * oy - SCATTER_DAMPING * scatterVelocity[i3 + 1]) * delta;
+      const vz = scatterVelocity[i3 + 2] + (-SCATTER_STIFFNESS * oz - SCATTER_DAMPING * scatterVelocity[i3 + 2]) * delta;
+      scatterVelocity[i3] = vx;
+      scatterVelocity[i3 + 1] = vy;
+      scatterVelocity[i3 + 2] = vz;
+      scatterOffset[i3] = ox + vx * delta;
+      scatterOffset[i3 + 1] = oy + vy * delta;
+      scatterOffset[i3 + 2] = oz + vz * delta;
+
       // Linear interpolation keeps speed constant through each vertex
       // instead of slowing to a stop there.
       dummy.position.set(
         (currentGrid[i3] + (targetGrid[i3] - currentGrid[i3]) * t) *
-          GRID_SPACING,
+          GRID_SPACING +
+          scatterOffset[i3],
         (currentGrid[i3 + 1] + (targetGrid[i3 + 1] - currentGrid[i3 + 1]) * t) *
-          GRID_SPACING,
+          GRID_SPACING +
+          scatterOffset[i3 + 1],
         (currentGrid[i3 + 2] + (targetGrid[i3 + 2] - currentGrid[i3 + 2]) * t) *
-          GRID_SPACING,
+          GRID_SPACING +
+          scatterOffset[i3 + 2],
       );
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);
