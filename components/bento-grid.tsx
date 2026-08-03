@@ -73,42 +73,39 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
         <CardContent className="p-4 flex-1 flex flex-col">
           <div className="space-y-4">
             <p className="text-sm text-black dark:text-white">
-              Hi, I'm Jack. I love making art, but it often feels like work. So
-              I also love to work. Right now, my work is focused on tech, But I
-              also want to work on painting, writing, music and running. My goal
-              is to grow my incubater r.technology. I'm currently failing at
-              achieving this goal, but I'm having fun doing it. Our first
-              product is braign.io, see below
-            </p>
-            <p className="text-sm text-black dark:text-white">
-              On a personal note, I'm committed to leaving the world better than
-              I found it, and believe that I can use my experiences to help
-              those around me. I'm an advocate for health of all kinds, self
-              love, and hard work.
-            </p>
-            <p className="text-sm text-black dark:text-white">
-              I recently found out just how much I enjoy making art (painting,
-              music, and poetry). Another goal of mine is finding a way to
-              pursue my lifelong dream of starting a company while still finding
-              space in my life to make art and run. I'd like to find a balance
-              in my life.
-            </p>
-            <p className="text-sm text-black dark:text-white">
-              Also, I find myself frustrated with the world we live in quite
-              often, but also grateful for how far humanity has come. Running
-              water is something special
+              Hi, I'm Jack. I'm a programmer based out of Cleveland, Ohio. I've
+              been writing code for most of my life, and I absolutely love it! I
+              left my job about a year ago to work on r.technology, an incubator
+              I've always wanted to start. Things have been slow over there, and
+              I'm currently pursuing consulting or full time positions to get me
+              closer to my dream of owning a tech incubator and writing code.
             </p>
             <p className="text-sm text-black/70 dark:text-white/80">
               On the development side of things, I mostly stick to the front
               end. I love creativity and the new age of AI tools makes the front
               end that much more fun (and important!). I'd like to get deeper
               into backend development, machine learning, and deep tech, but I
-              have a long way to go. I hope to share that journey as often as
-              possible
+              have a long way to go. I'm currently learning Rust and working on
+              a C Compiler. I hope to share that journey as often as possible
+            </p>
+            <p className="text-sm text-black dark:text-white">
+              On a personal note, I'm committed to leaving the world better than
+              I found it, and believe that I can use my experiences to help
+              those around me. I'm an advocate for health of all kinds, self
+              love, and hard work. I've struggled with my mental health before,
+              and coding/software development has been where I find my success.
+              I hope to share that passion with the world
+            </p>
+            <p className="text-sm text-black dark:text-white">
+              Also, I recently found out just how much I enjoy making art
+              (painting, music, and poetry). Another goal of mine is finding a
+              way to pursue my dream of starting a company while still finding
+              space in my life to make art. I'd like to find a balance in my
+              life.
             </p>
             <p className="text-sm text-black/70 dark:text-white/80">
-              My process is iterative and collaborative, so please reach out! I
-              believe the best work comes from a place of curiosity and rigorous
+              My process is collaborative, so please reach out! I believe the
+              best work comes from a place of curiosity and rigorous
               experimentation. That's what my incubator is all about. It's a
               grassroots bootstrapped organization with a bone to pick. We're
               excited to make some noise and share what we're working on!
