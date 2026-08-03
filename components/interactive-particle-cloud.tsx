@@ -31,13 +31,14 @@ const STEP_DURATION = 0.22; // seconds to travel one grid unit
 const MAX_FRAME_DELTA = 0.1; // clamp so a stalled tab can't skip grid cells
 
 // --- Click-to-scatter ---
-// Clicking raycasts to a point in the grid; particles within EXPLOSION_RADIUS
-// of that point get kicked outward (falloff by distance), then a
-// spring-damper pulls each one back toward its walk position.
+// Clicking raycasts to a point in the grid; particles inside the
+// EXPLOSION_RADIUS cube centered on that point get kicked outward (falloff by
+// distance from center), then a spring-damper pulls each one back toward its
+// walk position.
 const SCATTER_STIFFNESS = 45;
 const SCATTER_DAMPING = 12;
-const EXPLOSION_RADIUS = 4.5;
-const EXPLOSION_MAX_STRENGTH = 30;
+const EXPLOSION_RADIUS = 10;
+const EXPLOSION_MAX_STRENGTH = 300;
 
 // Each particle picks one of the 6 axis-aligned neighbors every time it
 // reaches a vertex.
@@ -117,7 +118,13 @@ function Particles({
     const scatterOffset = new Float32Array(particleCount * 3);
     const scatterVelocity = new Float32Array(particleCount * 3);
 
-    return { currentGrid, targetGrid, progress, scatterOffset, scatterVelocity };
+    return {
+      currentGrid,
+      targetGrid,
+      progress,
+      scatterOffset,
+      scatterVelocity,
+    };
   }, [particleCount]);
 
   useEffect(() => {
@@ -149,17 +156,24 @@ function Particles({
         let dx = px - cx;
         let dy = py - cy;
         let dz = pz - cz;
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        if (dist > EXPLOSION_RADIUS) continue;
+        if (
+          Math.abs(dx) > EXPLOSION_RADIUS ||
+          Math.abs(dy) > EXPLOSION_RADIUS ||
+          Math.abs(dz) > EXPLOSION_RADIUS
+        )
+          continue;
 
-        let len = dist;
+        // Chebyshev distance drives falloff so the influence region reads as
+        // a cube instead of a sphere.
+        const cubeDist = Math.max(Math.abs(dx), Math.abs(dy), Math.abs(dz));
+        let len = Math.sqrt(dx * dx + dy * dy + dz * dz);
         if (len < 1e-4) {
           dx = Math.random() * 2 - 1;
           dy = Math.random() * 2 - 1;
           dz = Math.random() * 2 - 1;
           len = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
         }
-        const falloff = 1 - dist / EXPLOSION_RADIUS;
+        const falloff = 1 - cubeDist / EXPLOSION_RADIUS;
         const strength = (EXPLOSION_MAX_STRENGTH * falloff * falloff) / len;
         scatterVelocity[i3] += dx * strength;
         scatterVelocity[i3 + 1] += dy * strength;
@@ -193,8 +207,13 @@ function Particles({
 
   useFrame((_, rawDelta) => {
     if (!meshRef.current) return;
-    const { currentGrid, targetGrid, progress, scatterOffset, scatterVelocity } =
-      walkState;
+    const {
+      currentGrid,
+      targetGrid,
+      progress,
+      scatterOffset,
+      scatterVelocity,
+    } = walkState;
     const delta = Math.min(rawDelta, MAX_FRAME_DELTA);
     const step = delta / STEP_DURATION;
 
@@ -226,9 +245,18 @@ function Particles({
       const ox = scatterOffset[i3];
       const oy = scatterOffset[i3 + 1];
       const oz = scatterOffset[i3 + 2];
-      const vx = scatterVelocity[i3] + (-SCATTER_STIFFNESS * ox - SCATTER_DAMPING * scatterVelocity[i3]) * delta;
-      const vy = scatterVelocity[i3 + 1] + (-SCATTER_STIFFNESS * oy - SCATTER_DAMPING * scatterVelocity[i3 + 1]) * delta;
-      const vz = scatterVelocity[i3 + 2] + (-SCATTER_STIFFNESS * oz - SCATTER_DAMPING * scatterVelocity[i3 + 2]) * delta;
+      const vx =
+        scatterVelocity[i3] +
+        (-SCATTER_STIFFNESS * ox - SCATTER_DAMPING * scatterVelocity[i3]) *
+          delta;
+      const vy =
+        scatterVelocity[i3 + 1] +
+        (-SCATTER_STIFFNESS * oy - SCATTER_DAMPING * scatterVelocity[i3 + 1]) *
+          delta;
+      const vz =
+        scatterVelocity[i3 + 2] +
+        (-SCATTER_STIFFNESS * oz - SCATTER_DAMPING * scatterVelocity[i3 + 2]) *
+          delta;
       scatterVelocity[i3] = vx;
       scatterVelocity[i3 + 1] = vy;
       scatterVelocity[i3 + 2] = vz;
