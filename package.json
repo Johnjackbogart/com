@@ -11,7 +11,11 @@
     "dev:ts": "concurrently --kill-others-on-fail -n NEXT,TS -c magenta,cyan \"bun run dev\" \"bun run ts\"",
     "ts": "tsc --noEmit --incremental --preserveWatchOutput --pretty --watch",
     "lint": "eslint .",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.4.0",
@@ -77,16 +81,23 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4.2.4",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.5",
     "autoprefixer": "^10.5.0",
     "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "^16.2.4",
+    "jsdom": "^30.0.1",
     "postcss": "^8.5.10",
     "tailwindcss": "^4.2.4",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
   }
 }
