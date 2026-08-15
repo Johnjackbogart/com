@@ -262,13 +262,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/r.png?height=300&width=500"
-              alt="Project 1"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              src="/r.png"
+              alt="r.technology screenshot"
+              width={660}
+              height={448}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -300,13 +301,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/through.png?height=300&width=500"
+              src="/through.png"
               alt="Through.tech screenshot"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              width={850}
+              height={486}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -326,43 +328,7 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
       <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
-      >
-        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
-          <div className="flex justify-between items-center">
-            <h3 className="font-bold text-lg text-black dark:text-white">
-              Project: braign.io
-            </h3>
-          </div>
-        </CardHeader>
-        <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
-            <Image
-              src="/braign.png?height=300&width=500"
-              alt="braign.io screenshot"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
-            />
-          </div>
-          <p className="text-sm text-black/70 dark:text-white/80">
-            Tools for the technical marketer.
-          </p>
-        </CardContent>
-        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
-          <Link
-            href="https://braign.io"
-            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
-          >
-            View <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-        </CardFooter>
-      </MotionCard>
-
-      <MotionCard
-        variants={itemVariants}
-        whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <div className="flex justify-between items-center">
@@ -372,13 +338,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/gradiator.png?height=300&width=500"
+              src="/gradiator.png"
               alt="gradiator.xyz screenshot"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              width={3422}
+              height={1802}
+              sizes="100vw"
+              className="w-full h-auto max-h-[40rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -399,7 +366,7 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
       <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <h3 className="font-bold text-lg text-black dark:text-white">
@@ -407,13 +374,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </h3>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-square bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/founder_journey.png?height=300&width=300"
-              alt="Project 2"
-              width={300}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              src="/founder_journey.png"
+              alt="Founder Journey screenshot"
+              width={3456}
+              height={1804}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -430,10 +398,10 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
         </CardFooter>
       </MotionCard>
 
-MotionCard
+      <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <h3 className="font-bold text-lg text-black dark:text-white">
@@ -441,13 +409,14 @@ MotionCard
           </h3>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-square bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/open_clip.png?height=300&width=300"
-              alt="Project 2"
-              width={300}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              src="/oclip.png"
+              alt="Open Clip screenshot"
+              width={2400}
+              height={1366}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -464,7 +433,7 @@ MotionCard
         </CardFooter>
       </MotionCard>
 
-MotionCard
+      <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
         className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
@@ -475,22 +444,30 @@ MotionCard
           </h3>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-square bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/founder_journey.png?height=300&width=300"
-              alt="Project 2"
-              width={300}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              src="/lander.png"
+              alt="Github Lander screenshot"
+              width={2868}
+              height={1370}
+              sizes="100vw"
+              className="w-full h-auto max-h-[40rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
-            Checkout my Readme and My Github Lander Page
+            Checkout my{" "}
+            <Link
+              href="https://https://github.com/Johnjackbogart"
+              className=" font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+            >
+              Readme{" "}
+            </Link>
+            and My Github Lander Page
           </p>
         </CardContent>
         <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
           <Link
-            href="https://v0-gakyqhqc-landing-page.vercel.app/"
+            href="https://johnjackbogart.github.io/"
             className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
           >
             Explore <ArrowRight className="w-4 h-4 ml-2" />
