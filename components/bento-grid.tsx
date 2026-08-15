@@ -429,6 +429,74 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </Link>
         </CardFooter>
       </MotionCard>
+
+MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <h3 className="font-bold text-lg text-black dark:text-white">
+            Project: Open Clip
+          </h3>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="aspect-square bg-neutral-800 mb-4">
+            <Image
+              src="/open_clip.png?height=300&width=300"
+              alt="Project 2"
+              width={300}
+              height={300}
+              className="w-full h-full object-cover opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            An Open Source Clipper Plugin written in Rust
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://jphnjackbogart.github.io/"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            Explore <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
+
+MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <h3 className="font-bold text-lg text-black dark:text-white">
+            Project: Github Lander
+          </h3>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="aspect-square bg-neutral-800 mb-4">
+            <Image
+              src="/founder_journey.png?height=300&width=300"
+              alt="Project 2"
+              width={300}
+              height={300}
+              className="w-full h-full object-cover opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            Checkout my Readme and My Github Lander Page
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://v0-gakyqhqc-landing-page.vercel.app/"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            Explore <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
     </motion.div>
   );
 }
