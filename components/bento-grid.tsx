@@ -73,42 +73,39 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
         <CardContent className="p-4 flex-1 flex flex-col">
           <div className="space-y-4">
             <p className="text-sm text-black dark:text-white">
-              Hi, I'm Jack. I love making art, but it often feels like work. So
-              I also love to work. Right now, my work is focused on tech, But I
-              also want to work on painting, writing, music and running. My goal
-              is to grow my incubater r.technology. I'm currently failing at
-              achieving this goal, but I'm having fun doing it. Our first
-              product is braign.io, see below
-            </p>
-            <p className="text-sm text-black dark:text-white">
-              On a personal note, I'm committed to leaving the world better than
-              I found it, and believe that I can use my experiences to help
-              those around me. I'm an advocate for health of all kinds, self
-              love, and hard work.
-            </p>
-            <p className="text-sm text-black dark:text-white">
-              I recently found out just how much I enjoy making art (painting,
-              music, and poetry). Another goal of mine is finding a way to
-              pursue my lifelong dream of starting a company while still finding
-              space in my life to make art and run. I'd like to find a balance
-              in my life.
-            </p>
-            <p className="text-sm text-black dark:text-white">
-              Also, I find myself frustrated with the world we live in quite
-              often, but also grateful for how far humanity has come. Running
-              water is something special
+              Hi, I'm Jack. I'm a programmer based out of Cleveland, Ohio. I've
+              been writing code for most of my life, and I absolutely love it! I
+              left my job about a year ago to work on r.technology, an incubator
+              I've always wanted to start. Things have been slow over there, and
+              I'm currently pursuing consulting or full time positions to get me
+              closer to my dream of owning a tech incubator and writing code.
             </p>
             <p className="text-sm text-black/70 dark:text-white/80">
               On the development side of things, I mostly stick to the front
               end. I love creativity and the new age of AI tools makes the front
               end that much more fun (and important!). I'd like to get deeper
               into backend development, machine learning, and deep tech, but I
-              have a long way to go. I hope to share that journey as often as
-              possible
+              have a long way to go. I'm currently learning Rust and working on
+              a C Compiler. I hope to share that journey as often as possible
+            </p>
+            <p className="text-sm text-black dark:text-white">
+              On a personal note, I'm committed to leaving the world better than
+              I found it, and believe that I can use my experiences to help
+              those around me. I'm an advocate for health of all kinds, self
+              love, and hard work. I've struggled with my mental health before,
+              and coding/software development has been where I find my success.
+              I hope to share that passion with the world
+            </p>
+            <p className="text-sm text-black dark:text-white">
+              Also, I recently found out just how much I enjoy making art
+              (painting, music, and poetry). Another goal of mine is finding a
+              way to pursue my dream of starting a company while still finding
+              space in my life to make art. I'd like to find a balance in my
+              life.
             </p>
             <p className="text-sm text-black/70 dark:text-white/80">
-              My process is iterative and collaborative, so please reach out! I
-              believe the best work comes from a place of curiosity and rigorous
+              My process is collaborative, so please reach out! I believe the
+              best work comes from a place of curiosity and rigorous
               experimentation. That's what my incubator is all about. It's a
               grassroots bootstrapped organization with a bone to pick. We're
               excited to make some noise and share what we're working on!
@@ -265,13 +262,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/r.png?height=300&width=500"
-              alt="Project 1"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              src="/r.png"
+              alt="r.technology screenshot"
+              width={660}
+              height={448}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -303,13 +301,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/through.png?height=300&width=500"
+              src="/through.png"
               alt="Through.tech screenshot"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              width={850}
+              height={486}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -329,43 +328,7 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
       <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
-      >
-        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
-          <div className="flex justify-between items-center">
-            <h3 className="font-bold text-lg text-black dark:text-white">
-              Project: braign.io
-            </h3>
-          </div>
-        </CardHeader>
-        <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
-            <Image
-              src="/braign.png?height=300&width=500"
-              alt="braign.io screenshot"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
-            />
-          </div>
-          <p className="text-sm text-black/70 dark:text-white/80">
-            Tools for the technical marketer.
-          </p>
-        </CardContent>
-        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
-          <Link
-            href="https://braign.io"
-            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
-          >
-            View <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-        </CardFooter>
-      </MotionCard>
-
-      <MotionCard
-        variants={itemVariants}
-        whileHover={{ y: -5, scale: 1.01 }}
-        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+        className="scroll-mt-24 rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <div className="flex justify-between items-center">
@@ -375,13 +338,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </div>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-video bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/gradiator.png?height=300&width=500"
+              src="/gradiator.png"
               alt="gradiator.xyz screenshot"
-              width={500}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              width={3422}
+              height={1802}
+              sizes="100vw"
+              className="w-full h-auto max-h-[40rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -402,7 +366,7 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
       <MotionCard
         variants={itemVariants}
         whileHover={{ y: -5, scale: 1.01 }}
-        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
       >
         <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
           <h3 className="font-bold text-lg text-black dark:text-white">
@@ -410,13 +374,14 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
           </h3>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="aspect-square bg-neutral-800 mb-4">
+          <div className="bg-neutral-800 mb-4">
             <Image
-              src="/founder_journey.png?height=300&width=300"
-              alt="Project 2"
-              width={300}
-              height={300}
-              className="w-full h-full object-cover opacity-80"
+              src="/founder_journey.png"
+              alt="Founder Journey screenshot"
+              width={3456}
+              height={1804}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
             />
           </div>
           <p className="text-sm text-black/70 dark:text-white/80">
@@ -426,6 +391,83 @@ export function BentoGrid({ latestPosts = [] }: BentoGridProps) {
         <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
           <Link
             href="https://v0-gakyqhqc-landing-page.vercel.app/"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            Explore <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
+
+      <MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-2 lg:col-span-2"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <h3 className="font-bold text-lg text-black dark:text-white">
+            Project: Open Clip
+          </h3>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="bg-neutral-800 mb-4">
+            <Image
+              src="/oclip.png"
+              alt="Open Clip screenshot"
+              width={2400}
+              height={1366}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="w-full h-auto max-h-[32rem] object-contain opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            An Open Source Clipper Plugin written in Rust
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://jphnjackbogart.github.io/"
+            className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+          >
+            Explore <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </CardFooter>
+      </MotionCard>
+
+      <MotionCard
+        variants={itemVariants}
+        whileHover={{ y: -5, scale: 1.01 }}
+        className="rounded-none !bg-white !text-black dark:!bg-black dark:!text-white col-span-1 md:col-span-4"
+      >
+        <CardHeader className="border-b border-black/10 p-4 dark:border-white/20">
+          <h3 className="font-bold text-lg text-black dark:text-white">
+            Project: Github Lander
+          </h3>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="bg-neutral-800 mb-4">
+            <Image
+              src="/lander.png"
+              alt="Github Lander screenshot"
+              width={2868}
+              height={1370}
+              sizes="100vw"
+              className="w-full h-auto max-h-[40rem] object-contain opacity-80"
+            />
+          </div>
+          <p className="text-sm text-black/70 dark:text-white/80">
+            Checkout my{" "}
+            <Link
+              href="https://https://github.com/Johnjackbogart"
+              className=" font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
+            >
+              Readme{" "}
+            </Link>
+            and My Github Lander Page
+          </p>
+        </CardContent>
+        <CardFooter className="border-t border-black/10 p-4 dark:border-white/20">
+          <Link
+            href="https://johnjackbogart.github.io/"
             className="flex items-center font-bold text-sm uppercase tracking-wider text-black dark:text-white hover:underline"
           >
             Explore <ArrowRight className="w-4 h-4 ml-2" />
